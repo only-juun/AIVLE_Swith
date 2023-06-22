@@ -67,7 +67,7 @@ public class JwtServiceImpl implements JwtService{
                 .withExpiresAt(new Date(System.currentTimeMillis() + refreshTokenValidityInSeconds * 1000))
                 .sign(Algorithm.HMAC512(secret));
     }
-    
+
     @Override
     public void updateRefreshToken(String username, String refreshToken) {
         memberRepository.findByUsername(username)

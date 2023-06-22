@@ -47,7 +47,7 @@ public class Post extends BaseTimeEntity{
 
     //==게시글을 삭제하면 댓글 전부 삭제==//
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
     //==연관관계 편의 메서드==//
     public void confirmWriter(Member writer) {
@@ -56,7 +56,7 @@ public class Post extends BaseTimeEntity{
     }
 
     public void addComment(Comment comment) {
-        comments.add(comment);
+        commentList.add(comment);
     }
 
     //==내용 수정 관련==//

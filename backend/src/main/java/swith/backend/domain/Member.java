@@ -39,12 +39,15 @@ public class Member extends BaseTimeEntity{
     @Column(length = 100)
     private String refreshToken;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Like> likes = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
