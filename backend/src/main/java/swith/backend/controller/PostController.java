@@ -27,7 +27,7 @@ public class PostController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/post")
-    public void save(@Valid @ModelAttribute PostSaveDto postSaveDto){
+    public void save(@Valid @RequestBody PostSaveDto postSaveDto){
         postService.save(postSaveDto);
     }
 

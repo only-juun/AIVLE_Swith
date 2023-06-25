@@ -1,5 +1,6 @@
 package swith.backend.dto;
 
+import lombok.NoArgsConstructor;
 import swith.backend.domain.Member;
 
 import org.hibernate.validator.constraints.Range;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
 
 
 import javax.validation.constraints.*;
-
+@NoArgsConstructor
 public class MemberSignUpDto {
     @NotBlank(message = "아이디를 입력해주세요")
     @Size(min = 7, max = 25, message = "아이디는 7~25자 내외로 입력해주세요")

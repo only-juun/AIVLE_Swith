@@ -30,7 +30,7 @@ public class Member extends BaseTimeEntity{
     @Column(nullable = false, length = 30)
     private String nickname;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String serial;
 
     @Enumerated(EnumType.STRING)
