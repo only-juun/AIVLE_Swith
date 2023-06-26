@@ -9,7 +9,6 @@ import swith.backend.config.SecurityUtil;
 import swith.backend.domain.Post;
 import swith.backend.dto.PostInfoDto;
 import swith.backend.dto.PostPagingDto;
-import swith.backend.dto.PostSaveDto;
 import swith.backend.dto.PostUpdateDto;
 import swith.backend.exception.*;
 import swith.backend.repository.PostRepository;
@@ -96,12 +95,12 @@ public class PostServiceImpl implements PostService{
     }
 
 
-//    /**
-//     * 게시글 검색
-//     */
-//    @Override
-//    public PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition) {
-//
-//        return new PostPagingDto(postRepository.search(postSearchCondition, pageable));
-//    }
+    /**
+     * 게시글 검색
+     */
+    @Override
+    public PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition) {
+
+        return new PostPagingDto(postRepository.search(postSearchCondition, pageable));
+    }
 }

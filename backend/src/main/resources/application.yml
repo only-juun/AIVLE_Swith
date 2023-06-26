@@ -24,3 +24,16 @@ jwt:
 
 file:
   dir: /Users/hwanjun/Library/CloudStorage/OneDrive-uos.ac.kr/Workspace/files/
+
+cloud:
+  aws:
+    s3:
+      bucket: a031293-bucket
+    credentials:
+      access-key: AKIAVDZ23WGFXT7BPHSC
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false

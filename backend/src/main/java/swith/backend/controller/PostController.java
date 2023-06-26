@@ -61,9 +61,9 @@ public class PostController {
         postService.delete(postId);
     }
 
-//    /**
-//     * 게시글 검색
-//     */
+    /**
+     * 게시글 목록 조회
+     */
 //    @GetMapping("/postList")
 //    public ResponseEntity search(Pageable pageable,
 //                                 @RequestBody PostSearchCondition postSearchCondition){

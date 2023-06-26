@@ -1,7 +1,9 @@
 package swith.backend.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import swith.backend.exception.FileException;
 import swith.backend.exception.FileExceptionType;
@@ -11,6 +13,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class FileServiceImpl implements FileService{
 
     @Value("${file.dir}")//application.yml 파일에 있는 file.dir의 내용을 가져옴

@@ -1,7 +1,10 @@
 package swith.backend.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import swith.backend.cond.PostSearchCondition;
 import swith.backend.domain.Post;
 
 import java.util.Optional;
@@ -14,4 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 
     @Override
     void delete(Post entity);
+
+    Page<Post> search(PostSearchCondition postSearchCondition, Pageable pageable);
 }

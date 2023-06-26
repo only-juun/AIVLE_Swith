@@ -16,7 +16,7 @@ public class PostPagingDto {
     private int currentPageNum;
     private long totalElementCount;
     private int currentPageElementCount;
-    private List<BriefPostInfo> simpleLectureDtoList = new ArrayList<>();
+    private List<PostSimpleDto> simpleLectureDtoList = new ArrayList<>();
 
     public PostPagingDto(Page<Post> searchResults) {
         this.totalPageCount = searchResults.getTotalPages();
@@ -24,7 +24,7 @@ public class PostPagingDto {
         this.totalElementCount = searchResults.getTotalElements();
         this.currentPageElementCount = searchResults.getNumberOfElements();
         this.simpleLectureDtoList = searchResults.getContent().stream()
-                .map(BriefPostInfo::new)
+                .map(PostSimpleDto::new)
                 .collect(Collectors.toList());
     }
 }
