@@ -38,6 +38,16 @@ public class NotificationController {
         User user = userRepository.findBySerialNumber(serialNumber).get();
         Long id = user.getId();
 
+        PoseRespondDto poseRespondDto = new PoseRespondDto(label_to_string(poseRequestDto.getLabel()),poseRequestDto.getWifi(),poseRequestDto.getCamera());
+        String poseR = mapper.writeValueAsString(poseRespondDto);
+        notificationService.notify(id, poseR);
+    }
+
+    @PostMapping("/send-db")
+    public void sendDataDb(@RequestBody PoseRequestDto poseRequestDto){
+        String serialNumber = poseRequestDto.getSerialNumber();
+        User user = userRepository.findBySerialNumber(serialNumber).get();
+
         Pose pose = Pose.builder()
                 .label(poseRequestDto.getLabel())
                 .wifi(poseRequestDto.getWifi())
@@ -46,9 +56,14 @@ public class NotificationController {
         pose.label_to_string(poseRequestDto.getLabel());
         pose.setUser(user);
         poseRepository.save(pose);
-
-        PoseRespondDto poseRespondDto = new PoseRespondDto(pose.getLabel_s(),pose.getWifi(),pose.getCamera());
-        String poseR = mapper.writeValueAsString(poseRespondDto);
-        notificationService.notify(id, poseR);
+    }
+    public String label_to_string(int label) {
+        if (label == 0) {
+            return "낙상이 감지되었습니다.";
+        } else if (label == 1) {
+            return "뒤집힘이 감지되었습니다.";
+        } else {
+            return "사각 지대에서 움직임이 감지되었습니다.";
+        }
     }
 }
