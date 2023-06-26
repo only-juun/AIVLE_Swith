@@ -1,57 +1,48 @@
 package swith.backend.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import swith.backend.cond.PostSearchCondition;
 import swith.backend.domain.Post;
 import swith.backend.dto.PostSaveDto;
 import swith.backend.dto.PostUpdateDto;
 import swith.backend.service.PostService;
-import swith.backend.service.PostServiceImpl;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/posts")
 public class PostController {
 
     private final PostService postService;
 
-
     /**
-     * 게시글 저장
+     * 게시글 등록
      */
+    @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/post")
-    public void save(@Valid @RequestBody PostSaveDto postSaveDto){
-        postService.save(postSaveDto);
+    public void register(@Valid @RequestBody PostSaveDto postSaveDto){
+        Post post = Post.builder()
+                    .title(postSaveDto.getTitle())
+                    .content(postSaveDto.getContent())
+                    .build();
+        postService.register(post);
     }
 
     /**
      * 게시글 수정
      */
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/post/{postId}")
+    @PutMapping("/edit/{postId}")
     public void update(@PathVariable("postId") Long postId,
-                       @ModelAttribute PostUpdateDto postUpdateDto){
+                       @RequestBody PostUpdateDto postUpdateDto){
 
 
         postService.update(postId, postUpdateDto);
     }
-
-    /**
-     * 게시글 삭제
-     */
-    @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/post/{postId}")
-    public void delete(@PathVariable("postId") Long postId){
-        postService.delete(postId);
-    }
-
 
     /**
      * 게시글 조회
@@ -62,12 +53,22 @@ public class PostController {
     }
 
     /**
-     * 게시글 검색
+     * 게시글 삭제
      */
-    @GetMapping("/post")
-    public ResponseEntity search(Pageable pageable,
-                                 @ModelAttribute PostSearchCondition postSearchCondition){
-
-        return ResponseEntity.ok(postService.getPostList(pageable,postSearchCondition));
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/post/{postId}")
+    @Transactional
+    public void delete(@PathVariable("postId") Long postId){
+        postService.delete(postId);
     }
+
+//    /**
+//     * 게시글 검색
+//     */
+//    @GetMapping("/postList")
+//    public ResponseEntity search(Pageable pageable,
+//                                 @RequestBody PostSearchCondition postSearchCondition){
+//
+//        return ResponseEntity.ok(postService.getPostList(pageable,postSearchCondition));
+//    }
 }

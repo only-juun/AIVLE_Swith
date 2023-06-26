@@ -3,18 +3,18 @@ package swith.backend.dto;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import swith.backend.domain.Member;
+import swith.backend.domain.User;
 
 @Data
 @NoArgsConstructor
-public class MemberInfoDto {
+public class UserInfoDto {
 
     private String name;
     private String nickname;
     private String username;
 
     @Builder
-    public MemberInfoDto(Member member) {
+    public UserInfoDto(User member) {
         this.name = member.getName();
         this.nickname = member.getNickname();
         this.username = member.getUsername();

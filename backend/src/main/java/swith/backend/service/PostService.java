@@ -1,7 +1,10 @@
 package swith.backend.service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import swith.backend.cond.PostSearchCondition;
+import swith.backend.domain.Post;
+import swith.backend.domain.User;
 import swith.backend.dto.PostInfoDto;
 import swith.backend.dto.PostPagingDto;
 import swith.backend.dto.PostSaveDto;
@@ -11,9 +14,9 @@ import swith.backend.exception.FileException;
 
 public interface PostService {
     /**
-     * 게시글 등록
+     * 게시글 저장
      */
-    void save(PostSaveDto postSaveDto) throws FileException;
+    void register(Post post);
 
     /**
      * 게시글 수정
@@ -30,9 +33,9 @@ public interface PostService {
      */
     PostInfoDto getPostInfo(Long id);
 
-    /**
-     * 검색 조건에 따른 게시글 리스트 조회 + 페이징
-     */
-    PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition);
+//    /**
+//     * 검색 조건에 따른 게시글 리스트 조회 + 페이징
+//     */
+//    PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition);
 
 }

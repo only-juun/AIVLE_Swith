@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,13 +18,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "MEMBER")
 public class User implements UserDetails {
 
 
     @Id @GeneratedValue
     private Long id;
-
-
 
     private String name;
     private String nickname;
@@ -32,11 +32,21 @@ public class User implements UserDetails {
     private String phoneNumber;
     private String email;
 
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private List<Thumb> thumbs = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -45,11 +55,19 @@ public class User implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    //==연관관계 편의 메서드==//
+    public void addPost(Post post) {
+        posts.add(post);
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
     @Override
     public String getUsername() {
         return email;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -70,5 +88,19 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    //==회원 정보 수정==//
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updatePassword(PasswordEncoder passwordEncoder, String password) {
+        this.password = passwordEncoder.encode(password);
+    }
+
 
 }

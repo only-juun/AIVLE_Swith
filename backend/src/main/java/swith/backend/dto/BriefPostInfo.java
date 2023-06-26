@@ -19,7 +19,7 @@ public class BriefPostInfo{
         this.postId = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.writerName = post.getMember().getName();
+        this.writerName = post.getUser().getName();
         this.createdDate = post.getCreatedDate().toString();
     }
 }

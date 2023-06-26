@@ -14,6 +14,9 @@ public class CommentController {
 
     private final CommentService commentService;
 
+    /**
+     * 댓글 작성
+     */
     @PostMapping("/comment/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void commentSave(@PathVariable("postId") Long postId, CommentSaveDto commentSaveDto){
@@ -21,15 +24,9 @@ public class CommentController {
     }
 
 
-    @PostMapping("/comment/{postId}/{commentId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void reCommentSave(@PathVariable("postId") Long postId,
-                              @PathVariable("commentId") Long commentId,
-                              CommentSaveDto commentSaveDto){
-        commentService.saveReComment(postId, commentId, commentSaveDto);
-    }
-
-
+    /**
+     * 댓글 수정
+     */
     @PutMapping("/comment/{commentId}")
     public void update(@PathVariable("commentId") Long commentId,
                        CommentUpdateDto commentUpdateDto){
@@ -37,8 +34,20 @@ public class CommentController {
     }
 
 
+    /**
+     * 댓글 삭제
+     */
     @DeleteMapping("/comment/{commentId}")
     public void delete(@PathVariable("commentId") Long commentId){
         commentService.remove(commentId);
     }
+
+
+//    @PostMapping("/comment/{postId}/{commentId}")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void reCommentSave(@PathVariable("postId") Long postId,
+//                              @PathVariable("commentId") Long commentId,
+//                              CommentSaveDto commentSaveDto){
+//        commentService.saveReComment(postId, commentId, commentSaveDto);
+//    }
 }

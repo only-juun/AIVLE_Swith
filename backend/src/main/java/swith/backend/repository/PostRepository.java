@@ -6,9 +6,11 @@ import swith.backend.domain.Post;
 
 import java.util.Optional;
 
-public interface PostRepository extends JpaRepository<Post, Long>, CustomPostRepository{
-    @EntityGraph(attributePaths = {"writer"})
-    Optional<Post> findWithWriterById(Long id);
+public interface PostRepository extends JpaRepository<Post, Long>{
+    //@EntityGraph: fetch join 간편하게 사용할 수 있도록 해주는 어노테이션
+    //JPQL: select p from Post p join fetch p.writer w where p.id = :id
+    @EntityGraph(attributePaths = {"user"})
+    Optional<Post> findWithUserById(Long id);
 
     @Override
     void delete(Post entity);

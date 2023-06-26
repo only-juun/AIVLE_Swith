@@ -4,7 +4,6 @@ import lombok.Data;
 import swith.backend.domain.Comment;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class CommentInfoDto{
@@ -13,16 +12,11 @@ public class CommentInfoDto{
 
     private Long postId;//댓글이 달린 POST의 ID
 
-
     private Long commentId;//해당 댓글의 ID
     private String content;//내용 (삭제되었다면 "삭제된 댓글입니다 출력")
     private boolean isRemoved;//삭제되었는지?
 
-
-    private MemberInfoDto writerDto;//댓글 작성자에 대한 정보
-
-    private List<ReCommentInfoDto> reCommentListDtoList;//대댓글에 대한 정보들
-
+    private UserInfoDto writerDto;//댓글 작성자에 대한 정보
 
 
 
@@ -47,11 +41,7 @@ public class CommentInfoDto{
 
 
 
-        this.writerDto = new MemberInfoDto(comment.getMember());
-
-        this.reCommentListDtoList = reCommentList.stream()
-                .map(ReCommentInfoDto::new)
-                .collect(Collectors.toList());
+        this.writerDto = new UserInfoDto(comment.getUser());
 
 
     }

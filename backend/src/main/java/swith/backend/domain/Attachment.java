@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 public class Attachment {
     @Id
     @GeneratedValue

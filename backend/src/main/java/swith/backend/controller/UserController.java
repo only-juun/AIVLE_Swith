@@ -12,6 +12,8 @@ import swith.backend.dto.UserSignUpRequestDto;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.service.UserService;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +22,9 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * 회원가입
+     */
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public void singUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto) {
@@ -36,12 +41,25 @@ public class UserController {
         userService.join(user);
 
     }
+
+    /**
+     * 로그인
+     */
     @PostMapping("/login")
     public TokenInfo login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
         TokenInfo tokenInfo = userService.login(userLoginRequestDto.getEmail(), userLoginRequestDto.getPassword());
 
         return tokenInfo;
     }
+
+    // TODO: 회원정보 수정
+
+    // TODO: 비밀번호 초기화
+
+    // TODO: 회원탈퇴
+
+    // TODO: 회원정보 조회
+
 
     @PostMapping("/test")
     public String test() {

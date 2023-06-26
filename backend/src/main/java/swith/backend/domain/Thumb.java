@@ -6,10 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "like")
 @Getter
-@Setter
-public class Like {
+public class Thumb {
 
     @Id
     @GeneratedValue
@@ -18,7 +16,7 @@ public class Like {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pusher_id")
-    private Member member;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
