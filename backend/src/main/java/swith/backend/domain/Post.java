@@ -12,7 +12,7 @@ import java.util.List;
 public class Post extends BaseTimeEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(length = 40, nullable = false)
