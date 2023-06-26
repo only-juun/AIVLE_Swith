@@ -68,6 +68,6 @@ public class UserController {
 
     @PostMapping("/test2")
     public String test2() {
-        return "success2";
+        return "success23";
     }
 }
