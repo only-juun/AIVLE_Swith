@@ -31,6 +31,6 @@ public interface PostService {
     /**
      * 검색 조건에 따른 게시글 리스트 조회 + 페이징
      */
-    PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition);
+//    PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition);
 
 }

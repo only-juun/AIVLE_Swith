@@ -18,5 +18,5 @@ public interface PostRepository extends JpaRepository<Post, Long>{
     @Override
     void delete(Post entity);
 
-    Page<Post> search(PostSearchCondition postSearchCondition, Pageable pageable);
+//    Page<Post> search(PostSearchCondition postSearchCondition, Pageable pageable);
 }

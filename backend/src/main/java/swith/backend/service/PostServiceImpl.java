@@ -98,9 +98,9 @@ public class PostServiceImpl implements PostService{
     /**
      * 게시글 검색
      */
-    @Override
-    public PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition) {
-
-        return new PostPagingDto(postRepository.search(postSearchCondition, pageable));
-    }
+//    @Override
+//    public PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition) {
+//
+//        return new PostPagingDto(postRepository.search(postSearchCondition, pageable));
+//    }
 }
