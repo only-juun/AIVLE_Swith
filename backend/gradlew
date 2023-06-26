@@ -236,5 +236,5 @@ eval "set -- $(
         sed ' s~[^-[:alnum:]+,./:=@_]~\\&~g; ' |
         tr '\n' ' '
     )" '"$@"'
-
+JAVACMD="C:/Program Files/Java/jdk-11/bin/java"
 exec "$JAVACMD" "$@"

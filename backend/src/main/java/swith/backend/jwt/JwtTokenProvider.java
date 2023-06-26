@@ -39,6 +39,7 @@ public class JwtTokenProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
+
         long now = new Date().getTime();
         //Access Token 생성
         //1일 : 24 * 60 * 60 * 1000 = 86400000
