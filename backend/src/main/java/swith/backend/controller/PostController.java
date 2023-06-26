@@ -26,9 +26,9 @@ public class PostController {
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@Valid @RequestBody PostSaveDto postSaveDto){
         Post post = Post.builder()
-                    .title(postSaveDto.getTitle())
-                    .content(postSaveDto.getContent())
-                    .build();
+                .title(postSaveDto.getTitle())
+                .content(postSaveDto.getContent())
+                .build();
         postService.register(post);
     }
 
@@ -39,7 +39,6 @@ public class PostController {
     @PutMapping("/edit/{postId}")
     public void update(@PathVariable("postId") Long postId,
                        @RequestBody PostUpdateDto postUpdateDto){
-
 
         postService.update(postId, postUpdateDto);
     }

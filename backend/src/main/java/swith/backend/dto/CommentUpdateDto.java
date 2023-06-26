@@ -1,19 +1,14 @@
 package swith.backend.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Optional;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentUpdateDto {
     private Optional<String> content;
-
-    public CommentUpdateDto(Optional<String> content) {
-        this.content = content;
-    }
-
-    public Optional<String> getContent() {
-        return content;
-    }
-
-    public void setContent(Optional<String> content) {
-        this.content = content;
-    }
 }

@@ -1,5 +1,6 @@
 package swith.backend.domain;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,10 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends BaseTimeEntity{
     @Id
-    @GeneratedValue
-    @Column(name = "comment_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Lob
@@ -51,7 +51,6 @@ public class Comment extends BaseTimeEntity{
     public void remove() {
         this.isRemoved = true;
     }
-
 
     @Builder
     public Comment(User writer, Post post, String content) {

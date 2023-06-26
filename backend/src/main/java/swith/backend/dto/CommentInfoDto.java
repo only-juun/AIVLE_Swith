@@ -25,21 +25,15 @@ public class CommentInfoDto{
      * 삭제되었을 경우 삭제된 댓글입니다 출력
      */
 
-    public CommentInfoDto(Comment comment, List<Comment> reCommentList) {
+    public CommentInfoDto(Comment comment) {
 
         this.postId = comment.getPost().getId();
         this.commentId = comment.getId();
-
-
         this.content = comment.getContent();
-
         if(comment.isRemoved()){
             this.content = DEFAULT_DELETE_MESSAGE;
         }
-
         this.isRemoved = comment.isRemoved();
-
-
 
         this.writerDto = new UserInfoDto(comment.getUser());
 

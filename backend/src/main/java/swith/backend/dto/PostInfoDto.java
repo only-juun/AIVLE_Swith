@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
 public class PostInfoDto{
 
 
@@ -26,8 +25,6 @@ public class PostInfoDto{
     private List<CommentInfoDto> commentInfoDtoList;//댓글 정보들
 
 
-
-
     public PostInfoDto(Post post) {
 
         this.postId = post.getId();
@@ -36,5 +33,7 @@ public class PostInfoDto{
 
         this.writerDto = new UserInfoDto(post.getUser());
 
+        List<Comment> commentList = post.getComments();
+        this.commentInfoDtoList = commentList.stream().map(CommentInfoDto::new).collect(Collectors.toList());
     }
 }

@@ -31,8 +31,6 @@ public class PostServiceImpl implements PostService{
     @Override
     @Transactional
     public void register(Post post){
-//        Post post = postSaveDto.toEntity();
-
         post.confirmWriter(userRepository.findByEmail(SecurityUtil.getLoginUsername()).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER)));
 
         postRepository.save(post);
