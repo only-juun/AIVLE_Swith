@@ -43,7 +43,16 @@ public class InitDb {
                     .build();
             user.getRoles().add("USER");
 
+            User user_1 = User.builder()
+                    .email("dlgkswns@naver.com")
+                    .password(encodedPassword)
+                    .nickname("장기")
+                    .name("피파")
+                    .build();
+            user.getRoles().add("USER");
+
             userRepository.save(user);
+            userRepository.save(user_1);
 
             Optional<User> byEmail = userRepository.findByEmail(user.getEmail());
             Optional<User> byId = userRepository.findById(user.getId());

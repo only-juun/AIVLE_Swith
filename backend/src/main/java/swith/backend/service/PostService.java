@@ -1,11 +1,15 @@
 package swith.backend.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import swith.backend.cond.PostSearchCondition;
 import swith.backend.domain.Post;
 import swith.backend.dto.PostInfoDto;
 import swith.backend.dto.PostPagingDto;
 import swith.backend.dto.PostUpdateDto;
+
+import java.util.List;
 
 public interface PostService {
     /**
@@ -28,9 +32,17 @@ public interface PostService {
      */
     PostInfoDto getPostInfo(Long id);
 
+
+
     /**
      * 검색 조건에 따른 게시글 리스트 조회 + 페이징
      */
 //    PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition);
 
+    /**
+     * 게시글 페이징 조회
+     */
+    public Page<Post> getPostList(int page,int size);
+
+    public Page<Post> getPageList(int size);
 }
