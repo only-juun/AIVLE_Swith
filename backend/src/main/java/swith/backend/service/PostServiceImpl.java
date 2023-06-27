@@ -1,7 +1,10 @@
 package swith.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swith.backend.cond.PostSearchCondition;
@@ -103,4 +106,23 @@ public class PostServiceImpl implements PostService{
 //
 //        return new PostPagingDto(postRepository.search(postSearchCondition, pageable));
 //    }
+
+    /**
+     * 게시글 페이징 조회
+     */
+    @Override
+    public Page<Post> getPostList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<Post> postList = postRepository.findAll(pageable);
+
+        return postList;
+    }
+
+    @Override
+    public Page<Post> getPageList(int size) {
+        Pageable pageable = PageRequest.ofSize(2);
+        Page<Post> postList = postRepository.findAll(pageable);
+
+        return postList;
+    }
 }
