@@ -2,6 +2,7 @@ package swith.backend.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import swith.backend.domain.Attachment;
 import swith.backend.domain.Comment;
 import swith.backend.domain.Post;
 
@@ -16,9 +17,9 @@ public class PostInfoDto{
     private Long postId; //POST의 ID
     private String title;//제목
     private String content;//내용
-    private String filePath;//업로드 파일 경로
     private UserInfoDto writerDto;//작성자에 대한 정보
     private List<CommentInfoDto> commentInfoDtoList;//댓글 정보들
+    private List<AttachmentInfoDto> attachmentInfoDto;//첨부파일 정보들
 
 
     public PostInfoDto(Post post) {
@@ -31,5 +32,8 @@ public class PostInfoDto{
 
         List<Comment> commentList = post.getComments();
         this.commentInfoDtoList = commentList.stream().map(CommentInfoDto::new).collect(Collectors.toList());
+        List<Attachment> attachmentList = post.getAttachments();
+        this.attachmentInfoDto = attachmentList.stream().map(AttachmentInfoDto::new).collect(Collectors.toList());
+
     }
 }

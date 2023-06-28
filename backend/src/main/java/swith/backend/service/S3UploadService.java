@@ -9,12 +9,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import swith.backend.domain.Attachment;
+import swith.backend.domain.Post;
 import swith.backend.dto.S3FileDto;
+import swith.backend.exception.PostException;
+import swith.backend.exception.PostExceptionType;
+import swith.backend.repository.PostRepository;
+import swith.backend.repository.S3Repository;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static swith.backend.exception.PostExceptionType.POST_NOT_POUND;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,11 +34,13 @@ public class S3UploadService {
     private String bucketName;
 
     private final AmazonS3Client amazonS3Client;
+    private final S3Repository s3Repository;
+    private final PostRepository postRepository;
 
     /**
      * S3로 파일 업로드
      */
-    public List<S3FileDto> uploadFiles(String fileType, List<MultipartFile> multipartFiles) {
+    public List<S3FileDto> uploadFiles(Long postId, String fileType, List<MultipartFile> multipartFiles) {
 
         List<S3FileDto> s3files = new ArrayList<>();
 
@@ -62,13 +72,22 @@ public class S3UploadService {
                 log.error("Filed upload failed", e);
             }
 
-            s3files.add(
-                    S3FileDto.builder()
-                            .originalFileName(originalFileName)
-                            .uploadFileName(uploadFileName)
-                            .uploadFilePath(uploadFilePath)
-                            .uploadFileUrl(uploadFileUrl)
-                            .build());
+            Attachment attachment = Attachment.builder()
+                    .originalFileName(originalFileName)
+                    .uploadFileName(uploadFileName)
+                    .uploadFilePath(uploadFilePath)
+                    .uploadFileUrl(uploadFileUrl)
+                    .build();
+            attachment.confirmPost(postRepository.findById(postId).orElseThrow(() -> new PostException(PostExceptionType.POST_NOT_POUND)));
+
+            s3files.add(S3FileDto.builder()
+                    .originalFileName(originalFileName)
+                    .uploadFileName(uploadFileName)
+                    .uploadFilePath(uploadFilePath)
+                    .uploadFileUrl(uploadFileUrl)
+                    .build());
+
+            s3Repository.save(attachment);
         }
 
         return s3files;
@@ -85,7 +104,10 @@ public class S3UploadService {
             String keyName = uploadFilePath + "/" + uuidFileName; // ex) 구분/년/월/일/파일.확장자
             boolean isObjectExist = amazonS3Client.doesObjectExist(bucketName, keyName);
             if (isObjectExist) {
+                Attachment attachment = s3Repository.findByUploadFileName(uuidFileName);
                 amazonS3Client.deleteObject(bucketName, keyName);
+                s3Repository.delete(attachment);
+
             } else {
                 result = "file not found";
             }

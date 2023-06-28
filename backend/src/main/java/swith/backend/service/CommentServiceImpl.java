@@ -56,7 +56,8 @@ public class CommentServiceImpl implements CommentService{
             throw new CommentException(CommentExceptionType.NOT_AUTHORITY_DELETE_COMMENT);
         }
 
-        comment.remove();
+//        comment.remove();
+        commentRepository.delete(comment);
     }
 
     private void checkAuthority(Comment comment, CommentExceptionType commentExceptionType) {

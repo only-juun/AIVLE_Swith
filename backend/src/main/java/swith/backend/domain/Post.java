@@ -57,6 +57,10 @@ public class Post extends BaseTimeEntity{
         comments.add(comment);
     }
 
+    public void addAttachment(Attachment attachment) {
+        attachments.add(attachment);
+    }
+
     //==게시글 내용 수정 관련==//
     public void updateTitle(String title) {
         this.title = title;

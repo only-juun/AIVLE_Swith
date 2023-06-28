@@ -1,29 +1,31 @@
 package swith.backend.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Attachment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fileName;
-    private String filePath;
-//    private String fileType;
+    private String originalFileName;
+    private String uploadFileName;
+    private String uploadFilePath;
+    private String uploadFileUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public void UploadFile(String fileName, String filePath) {
-        this.fileName = fileName;
-        this.filePath = filePath;
+
+    public void confirmPost(Post post) {
+        this.post = post;
+        post.addAttachment(this);
     }
 }
