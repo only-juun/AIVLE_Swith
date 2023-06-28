@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import swith.backend.cond.PostSearchCondition;
 import swith.backend.domain.Post;
+import swith.backend.domain.PostSearch;
 import swith.backend.dto.PostInfoDto;
 import swith.backend.dto.PostPagingDto;
 import swith.backend.dto.PostUpdateDto;
@@ -32,17 +33,18 @@ public interface PostService {
      */
     PostInfoDto getPostInfo(Long id);
 
-
-
-    /**
-     * 검색 조건에 따른 게시글 리스트 조회 + 페이징
-     */
-//    PostPagingDto getPostList(Pageable pageable, PostSearchCondition postSearchCondition);
-
     /**
      * 게시글 페이징 조회
      */
     public Page<Post> getPostList(int page,int size);
 
-    public Page<Post> getPageList(int size);
+    /**
+     * 전체 게시글 개수와 페이지 조회
+     */
+//    public Page<Post> getPageList(int size);
+
+    /**
+     * 검색 기능을 활용한 페이지 조회
+     */
+    public Page<Post> PostSearch(PostSearch postSearch,int page,int size);
 }
