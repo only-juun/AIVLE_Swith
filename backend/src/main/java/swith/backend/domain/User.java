@@ -33,6 +33,10 @@ public class User implements UserDetails {
     private String phoneNumber;
     private String email;
 
+    /**
+     * 연령대(int), 시간대(array) 다 정수형
+     */
+
     @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Thumb> thumbs = new ArrayList<>();
