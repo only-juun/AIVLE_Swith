@@ -19,6 +19,8 @@ public class PostInfoDto{
     private String title;//제목
     private String content;//내용
     private LocalDateTime createdDate;//작성 일시
+    private int searchCount;
+    private int likeCount;
     private UserInfoDto writerDto;//작성자에 대한 정보
     private List<CommentInfoDto> commentInfoDtoList;//댓글 정보들
     private List<AttachmentInfoDto> attachmentInfoDto;//첨부파일 정보들
@@ -30,6 +32,8 @@ public class PostInfoDto{
         this.title = post.getTitle();
         this.content = post.getContent();
         this.createdDate = post.getCreatedDate();
+        this.searchCount = post.getSearchCount();
+        this.likeCount = post.getLikeCount();
 
         this.writerDto = new UserInfoDto(post.getUser());
 
