@@ -112,14 +112,14 @@ public class PostController {
     /**
      * 게시글 전체 페이지 번호와 전체 데이터 수
      */
-//    @GetMapping("/pageNumber")
-//    public PageNumberDto pageNumber() {
-//        Page<Post> posts = postService.getPageList(2);
-//        int totalPages = posts.getTotalPages();
-//        long totalElements = posts.getTotalElements();
-//
-//        return new PageNumberDto(totalPages, totalElements);
-//    }
+    @GetMapping("/pageNumber")
+    public PageNumberDto pageNumber() {
+        Page<Post> posts = postService.getPageList(2);
+        int totalPages = posts.getTotalPages();
+        long totalElements = posts.getTotalElements();
+
+        return new PageNumberDto(totalPages, totalElements);
+    }
 
     @GetMapping("/search")
     public Page<SearchRespondDto> getCondList(@RequestParam("page") int page,@ModelAttribute PostSearch postSearch){
