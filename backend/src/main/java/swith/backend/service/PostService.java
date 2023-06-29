@@ -36,7 +36,7 @@ public interface PostService {
     /**
      * 전체 게시글 개수와 페이지 조회
      */
-//    public Page<Post> getPageList(int size);
+    public Page<Post> getPageList(int size);
 
     /**
      * 검색 기능을 활용한 페이지 조회

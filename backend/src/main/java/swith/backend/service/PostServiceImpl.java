@@ -8,12 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import swith.backend.cond.PostSearchCondition;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.Post;
 import swith.backend.domain.PostSearch;
 import swith.backend.dto.PostInfoDto;
-import swith.backend.dto.PostPagingDto;
 import swith.backend.dto.PostUpdateDto;
 import swith.backend.exception.*;
 import swith.backend.repository.PostRepository;
@@ -123,13 +121,13 @@ public class PostServiceImpl implements PostService{
         return postList;
     }
 
-//    @Override
-//    public Page<Post> getPageList(int size) {
-//        Pageable pageable = PageRequest.ofSize(2);
-//        Page<Post> postList = postRepository.findAll(pageable);
-//
-//        return postList;
-//    }
+    @Override
+    public Page<Post> getPageList(int size) {
+        Pageable pageable = PageRequest.ofSize(2);
+        Page<Post> postList = postRepository.findAll(pageable);
+
+        return postList;
+    }
 
     @Override
     public Page<Post> PostSearch(PostSearch postSearch,int page,int size) {
