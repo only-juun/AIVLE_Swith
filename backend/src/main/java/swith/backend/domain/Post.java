@@ -69,4 +69,7 @@ public class Post extends BaseTimeEntity{
     public void updateContent(String content) {
         this.content = content;
     }
+
+    public void updateSearchCount(int searchCount) {
+        this.searchCount = searchCount + 1;}
 }

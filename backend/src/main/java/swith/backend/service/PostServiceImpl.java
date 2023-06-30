@@ -8,19 +8,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import swith.backend.cond.PostSearchCondition;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.Post;
 import swith.backend.domain.PostSearch;
 import swith.backend.dto.PostInfoDto;
-import swith.backend.dto.PostPagingDto;
 import swith.backend.dto.PostUpdateDto;
 import swith.backend.exception.*;
 import swith.backend.repository.PostRepository;
 import swith.backend.repository.PostRepositorySupport;
 import swith.backend.repository.UserRepository;
 
-import static swith.backend.exception.PostExceptionType.POST_NOT_POUND;
+import static swith.backend.domain.QPost.post;
+import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @Service
 @Transactional(readOnly = true)
@@ -49,9 +48,8 @@ public class PostServiceImpl implements PostService{
     @Override
     @Transactional
     public void update(Long postId, PostUpdateDto postUpdateDto) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_POUND));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_FOUND));
         checkAuthority(post,PostExceptionType.NOT_AUTHORITY_UPDATE_POST );
-
 
         postUpdateDto.getTitle().ifPresent(post::updateTitle);
         postUpdateDto.getContent().ifPresent(post::updateContent);
@@ -66,7 +64,7 @@ public class PostServiceImpl implements PostService{
     public void delete(Long id) {
 
         Post post = postRepository.findById(id).orElseThrow(() ->
-                new PostException(POST_NOT_POUND));
+                new PostException(POST_NOT_FOUND));
 
         checkAuthority(post, PostExceptionType.NOT_AUTHORITY_DELETE_POST);
 
@@ -83,7 +81,7 @@ public class PostServiceImpl implements PostService{
      * Post의 id를 통해 Post 조회
      */
     @Override
-    public PostInfoDto getPostInfo(Long id) {
+    public PostInfoDto getPostInfo(Long postId) {
 
 
         /**
@@ -97,8 +95,8 @@ public class PostServiceImpl implements PostService{
          *
          *
          */
-        return new PostInfoDto(postRepository.findWithUserById(id)
-                .orElseThrow(() -> new PostException(POST_NOT_POUND)));
+        return new PostInfoDto(postRepository.findWithUserById(postId)
+                .orElseThrow(() -> new PostException(POST_NOT_FOUND)));
 
     }
 
