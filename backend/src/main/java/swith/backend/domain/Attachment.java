@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 public class Attachment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private String originalFileName;
