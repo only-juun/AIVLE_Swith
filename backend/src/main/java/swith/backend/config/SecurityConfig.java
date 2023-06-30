@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .antMatchers("/users/signup").permitAll()
                 .antMatchers("/notifications/send-data/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/user").denyAll()
                 .antMatchers("/users/test").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()

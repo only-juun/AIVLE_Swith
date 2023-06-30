@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.User;
+import swith.backend.dto.UserInfoByTokenDto;
+import swith.backend.dto.UserInfoDto;
 import swith.backend.dto.UserLoginRequestDto;
 import swith.backend.dto.UserSignUpRequestDto;
 import swith.backend.exception.ExceptionCode;
@@ -27,15 +29,17 @@ public class UserController {
 
 
     @GetMapping("/user")
-    public User getUserByEmail(@RequestParam String email) {
+    public ResponseEntity<UserInfoByTokenDto> getUserByEmail() {
         User user = userService.findUser(SecurityUtil.getLoginUsername());
-        return user;
+        UserInfoByTokenDto userInfoByTokenDto = UserInfoByTokenDto.builder()
+                .name(user.getName())
+                .nickname(user.getNickname())
+                .serialNumber(user.getSerialNumber())
+                .email(user.getEmail())
+                .build();
+        return ResponseEntity.ok(userInfoByTokenDto);
     }
 
-    @GetMapping("/test")
-    public void test3(){
-        throw new UserException(ExceptionCode.USER_SERIAL_EXISTS);
-    }
     /**
      * 회원가입
      */
@@ -75,13 +79,4 @@ public class UserController {
     // TODO: 회원정보 조회
 
 
-    @PostMapping("/test")
-    public String test() {
-        return "success";
-    }
-
-    @PostMapping("/test2")
-    public String test2() {
-        return "success13";
-    }
 }
