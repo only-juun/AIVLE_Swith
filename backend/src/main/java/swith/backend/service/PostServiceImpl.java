@@ -19,7 +19,6 @@ import swith.backend.repository.PostRepository;
 import swith.backend.repository.PostRepositorySupport;
 import swith.backend.repository.UserRepository;
 
-import static swith.backend.domain.QPost.post;
 import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @Service
@@ -31,7 +30,7 @@ public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
     private final PostRepositorySupport postRepositorySupport;
     private final UserRepository userRepository;
-    private final S3UploadService s3UploadService;
+    private final S3Service s3Service;
 
     /**
      * 게시글 저장
@@ -73,7 +72,7 @@ public class PostServiceImpl implements PostService{
         for (Attachment attachment : post.getAttachments()) {
             String uploadFileName = attachment.getUploadFileName();
             String uploadFilePath = attachment.getUploadFilePath();
-            s3UploadService.deleteFile(uploadFilePath, uploadFileName);
+            s3Service.deleteFile(uploadFilePath, uploadFileName);
         }
         postRepository.delete(post);
     }
