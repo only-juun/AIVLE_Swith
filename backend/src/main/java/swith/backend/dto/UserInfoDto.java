@@ -11,12 +11,12 @@ public class UserInfoDto {
 
     private String name;
     private String nickname;
-    private String username;
+    private String email;
 
     @Builder
     public UserInfoDto(User member) {
         this.name = member.getName();
         this.nickname = member.getNickname();
-        this.username = member.getUsername();
+        this.email = member.getUsername();
     }
 }

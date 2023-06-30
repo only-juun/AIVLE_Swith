@@ -22,8 +22,6 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static swith.backend.exception.PostExceptionType.POST_NOT_POUND;
-
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
@@ -78,7 +76,7 @@ public class S3UploadService {
                     .uploadFilePath(uploadFilePath)
                     .uploadFileUrl(uploadFileUrl)
                     .build();
-            attachment.confirmPost(postRepository.findById(postId).orElseThrow(() -> new PostException(PostExceptionType.POST_NOT_POUND)));
+            attachment.confirmPost(postRepository.findById(postId).orElseThrow(() -> new PostException(PostExceptionType.POST_NOT_FOUND)));
 
             s3files.add(S3FileDto.builder()
                     .originalFileName(originalFileName)

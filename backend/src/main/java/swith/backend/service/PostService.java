@@ -26,7 +26,7 @@ public interface PostService {
     /**
      * 게시글 1개 조회
      */
-    PostInfoDto getPostInfo(Long id);
+    PostInfoDto getPostInfo(Long postId);
 
     /**
      * 게시글 페이징 조회
