@@ -27,15 +27,11 @@ public class UserController {
 
 
     @GetMapping("/user")
-    public User getUserByEmail(@RequestParam String email) {
+    public User getUserByEmail() {
         User user = userService.findUser(SecurityUtil.getLoginUsername());
         return user;
     }
 
-    @GetMapping("/test")
-    public void test3(){
-        throw new UserException(ExceptionCode.USER_SERIAL_EXISTS);
-    }
     /**
      * 회원가입
      */
@@ -75,13 +71,4 @@ public class UserController {
     // TODO: 회원정보 조회
 
 
-    @PostMapping("/test")
-    public String test() {
-        return "success";
-    }
-
-    @PostMapping("/test2")
-    public String test2() {
-        return "success13";
-    }
 }
