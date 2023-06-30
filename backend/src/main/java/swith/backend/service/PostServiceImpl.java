@@ -123,13 +123,13 @@ public class PostServiceImpl implements PostService{
         return postList;
     }
 
-//    @Override
-//    public Page<Post> getPageList(int size) {
-//        Pageable pageable = PageRequest.ofSize(2);
-//        Page<Post> postList = postRepository.findAll(pageable);
-//
-//        return postList;
-//    }
+    @Override
+    public Page<Post> getPageList(int size) {
+        Pageable pageable = PageRequest.ofSize(size);
+        Page<Post> postList = postRepository.findAll(pageable);
+
+        return postList;
+    }
 
     @Override
     public Page<Post> PostSearch(PostSearch postSearch,int page,int size) {
