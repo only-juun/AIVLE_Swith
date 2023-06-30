@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.User;
+import swith.backend.dto.UserInfoByTokenDto;
+import swith.backend.dto.UserInfoDto;
 import swith.backend.dto.UserLoginRequestDto;
 import swith.backend.dto.UserSignUpRequestDto;
 import swith.backend.exception.ExceptionCode;
@@ -27,9 +29,15 @@ public class UserController {
 
 
     @GetMapping("/user")
-    public User getUserByEmail() {
+    public ResponseEntity<UserInfoByTokenDto> getUserByEmail() {
         User user = userService.findUser(SecurityUtil.getLoginUsername());
-        return user;
+        UserInfoByTokenDto userInfoByTokenDto = UserInfoByTokenDto.builder()
+                .name(user.getName())
+                .nickname(user.getNickname())
+                .serialNumber(user.getSerialNumber())
+                .email(user.getEmail())
+                .build();
+        return ResponseEntity.ok(userInfoByTokenDto);
     }
 
     /**
