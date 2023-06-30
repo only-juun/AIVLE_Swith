@@ -6,9 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import swith.backend.config.SecurityUtil;
 import swith.backend.domain.User;
 import swith.backend.dto.UserLoginRequestDto;
 import swith.backend.dto.UserSignUpRequestDto;
+import swith.backend.exception.ExceptionCode;
+import swith.backend.exception.UserException;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.service.UserService;
 
@@ -22,6 +25,17 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
+
+    @GetMapping("/user")
+    public User getUserByEmail(@RequestParam String email) {
+        User user = userService.findUser(SecurityUtil.getLoginUsername());
+        return user;
+    }
+
+    @GetMapping("/test")
+    public void test3(){
+        throw new UserException(ExceptionCode.USER_SERIAL_EXISTS);
+    }
     /**
      * 회원가입
      */

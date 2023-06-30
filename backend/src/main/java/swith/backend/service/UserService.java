@@ -29,6 +29,11 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
+    public User findUser(String email) {
+        return userRepository.findByEmail(email).get();
+    }
+
+
     @Transactional
     public User join(User user) {
         verifiedExistedEmail(user.getEmail());
