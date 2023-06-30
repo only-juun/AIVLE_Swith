@@ -12,12 +12,16 @@ import org.springframework.web.multipart.MultipartFile;
 import swith.backend.domain.Post;
 import swith.backend.domain.PostSearch;
 import swith.backend.dto.*;
+import swith.backend.exception.PostException;
+import swith.backend.repository.PostRepository;
 import swith.backend.service.PostService;
 import swith.backend.service.S3UploadService;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +31,7 @@ public class PostController {
 
     private final PostService postService;
     private final S3UploadService s3UploadService;
+    private final PostRepository postRepository;
 
     /**
      * 게시글 등록
@@ -74,11 +79,18 @@ public class PostController {
     /**
      * 게시글 조회
      */
+//    @GetMapping("/post/{postId}")
+//    public ResponseEntity getInfo(@PathVariable("postId") Long postId) {
+//        return ResponseEntity.ok(postService.getPostInfo(postId));
+//    }
+
     @GetMapping("/post/{postId}")
     public ResponseEntity getInfo(@PathVariable("postId") Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_FOUND));
+        post.updateSearchCount(post.getSearchCount());
+        postRepository.save(post);
         return ResponseEntity.ok(postService.getPostInfo(postId));
     }
-
     /**
      * 게시글 삭제
      */
