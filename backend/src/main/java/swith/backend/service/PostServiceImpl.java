@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swith.backend.config.SecurityUtil;
+import swith.backend.domain.Attachment;
 import swith.backend.domain.Post;
 import swith.backend.domain.PostSearch;
 import swith.backend.dto.PostInfoDto;
@@ -18,7 +19,6 @@ import swith.backend.repository.PostRepository;
 import swith.backend.repository.PostRepositorySupport;
 import swith.backend.repository.UserRepository;
 
-import static swith.backend.domain.QPost.post;
 import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @Service
@@ -30,6 +30,7 @@ public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
     private final PostRepositorySupport postRepositorySupport;
     private final UserRepository userRepository;
+    private final S3Service s3Service;
 
     /**
      * 게시글 저장
@@ -68,6 +69,11 @@ public class PostServiceImpl implements PostService{
 
         checkAuthority(post, PostExceptionType.NOT_AUTHORITY_DELETE_POST);
 
+        for (Attachment attachment : post.getAttachments()) {
+            String uploadFileName = attachment.getUploadFileName();
+            String uploadFilePath = attachment.getUploadFilePath();
+            s3Service.deleteFile(uploadFilePath, uploadFileName);
+        }
         postRepository.delete(post);
     }
 

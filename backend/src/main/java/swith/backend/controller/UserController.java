@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.User;
@@ -45,7 +46,10 @@ public class UserController {
      */
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public void singUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto) {
+    public ResponseEntity singUp(@Valid @RequestBody UserSignUpRequestDto userSignUpRequestDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+        }
         String encodedPassword = passwordEncoder.encode(userSignUpRequestDto.getPassword());
         User user = User.builder()
                 .name(userSignUpRequestDto.getName())
@@ -57,7 +61,7 @@ public class UserController {
                 .build();
         user.getRoles().add("USER");
         userService.join(user);
-
+        return null;
     }
 
     /**

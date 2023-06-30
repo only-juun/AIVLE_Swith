@@ -15,7 +15,7 @@ import swith.backend.dto.*;
 import swith.backend.exception.PostException;
 import swith.backend.repository.PostRepository;
 import swith.backend.service.PostService;
-import swith.backend.service.S3UploadService;
+import swith.backend.service.S3Service;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,7 +30,7 @@ import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 public class PostController {
 
     private final PostService postService;
-    private final S3UploadService s3UploadService;
+    private final S3Service s3Service;
     private final PostRepository postRepository;
 
     /**
@@ -60,7 +60,7 @@ public class PostController {
         postService.register(post);
 
         if (multipartFiles != null && !multipartFiles.isEmpty()) {
-            s3UploadService.uploadFiles(post.getId(), "image", multipartFiles);
+            s3Service.uploadFiles(post.getId(), "image", multipartFiles);
         }
     }
 
@@ -99,6 +99,7 @@ public class PostController {
     @DeleteMapping("/post/{postId}")
     @Transactional
     public void delete(@PathVariable("postId") Long postId) {
+
         postService.delete(postId);
     }
 
