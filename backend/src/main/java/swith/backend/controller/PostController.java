@@ -99,6 +99,7 @@ public class PostController {
     @DeleteMapping("/post/{postId}")
     @Transactional
     public void delete(@PathVariable("postId") Long postId) {
+
         postService.delete(postId);
     }
 
