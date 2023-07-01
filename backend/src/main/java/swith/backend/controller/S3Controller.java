@@ -49,9 +49,6 @@ public class S3Controller {
      */
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadFile(@RequestBody S3DownloadDto s3DownloadDto) throws IOException {
-        return s3Service.getFile(s3DownloadDto.getOriginalFileName());
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(s3Service.downloadFile(s3DownloadDto.getOriginalFileName()));
+        return s3Service.getFile(s3DownloadDto.getUploadFileName(), s3DownloadDto.getUploadFilePath());
     }
 }

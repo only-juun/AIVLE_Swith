@@ -39,7 +39,6 @@ public class S3Service {
     private final AmazonS3Client amazonS3Client;
     private final S3Repository s3Repository;
     private final PostRepository postRepository;
-//    private final AmazonS3 amazonS3;
 
     /**
      * S3로 파일 업로드
@@ -126,47 +125,33 @@ public class S3Service {
      * S3 파일 다운로드
      */
 
-    public ResponseEntity<byte[]> getFile(String storedFileName) throws IOException {
-        S3Object o = amazonS3Client.getObject(new GetObjectRequest(bucketName, storedFileName));
+    public ResponseEntity<byte[]> getFile(String uploadFileName, String uploadFilePath) throws IOException {
+        String keyName = uploadFilePath + "/" + uploadFileName;
+        S3Object o = amazonS3Client.getObject(new GetObjectRequest(bucketName, keyName));
         S3ObjectInputStream objectInputStream = ((S3Object) o).getObjectContent();
         byte[] bytes = IOUtils.toByteArray(objectInputStream);
 
-        String fileName = URLEncoder.encode(storedFileName, "UTF-8").replaceAll("\\+", "%20");
+        String fileName = URLEncoder.encode(keyName, "UTF-8").replaceAll("\\+", "%20");
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        httpHeaders.setContentType(contentType(keyName));
         httpHeaders.setContentLength(bytes.length);
         httpHeaders.setContentDispositionFormData("attachment", fileName);
 
         return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);
-
     }
-//    public ResponseEntity<byte[]> download(String fileUrl) throws IOException {// 객체 다운 fileurl : 폴더명
-//        S3Object s3Object = amazonS3Client.getObject (new GetObjectRequest (bucketName, fileUrl));
-//        S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
-//        byte[] bytes = IOUtils.toByteArray(s3ObjectInputStream);
-//
-//        HttpHeaders httpHeaders = new HttpHeaders() ;
-//        httpHeaders.setContentType(contentType(fileUrl));
-//        httpHeaders.setContentLength(bytes. length);
-//        String[] arr = fileUrl.split("/");
-//        String type = arr[arr. length - 1];
-//        String fileName = URLEncoder. encode (type, "UTF-8").replaceAll("\\+", "%20");
-//        httpHeaders. setContentDispositionFormData("attachment", fileName); // 파일이름 지정
-//
-//        return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);}
-//
-//    private MediaType contentType(String keyName) {
-//        String[] arr = keyName.split("\\.");
-//        String type = arr[arr.length - 1];
-//        switch (type) {
-//            case "png":
-//                return MediaType.IMAGE_PNG;
-//            case "jpg":
-//                return MediaType.IMAGE_JPEG;
-//            default:
-//                return MediaType.APPLICATION_OCTET_STREAM;
-//        }
-//    }
+
+    private MediaType contentType(String keyName) {
+        String[] arr = keyName.split("\\.");
+        String type = arr[arr.length - 1];
+        switch (type) {
+            case "png":
+                return MediaType.IMAGE_PNG;
+            case "jpg":
+                return MediaType.IMAGE_JPEG;
+            default:
+                return MediaType.APPLICATION_OCTET_STREAM;
+        }
+    }
 
     /**
      * UUID 파일명 반환
