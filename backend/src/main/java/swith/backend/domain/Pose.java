@@ -2,6 +2,7 @@ package swith.backend.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Pose extends BaseTimeEntity {
 
     @Id
@@ -37,11 +39,11 @@ public class Pose extends BaseTimeEntity {
 
     public void label_to_string(int label) {
         if (label == 0) {
-            this.label_s = "0번 라벨";
+            this.label_s = "낙상이 감지되었습니다.";
         } else if (label == 1) {
-            this.label_s = "1번 라벨";
+            this.label_s = "뒤집힘이 감지되었습니다.";
         } else {
-            this.label_s = "2번 라벨";
+            this.label_s = "사각 지대에서 움직임이 감지되었습니다.";
         }
     }
 }
