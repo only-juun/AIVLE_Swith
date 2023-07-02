@@ -26,18 +26,14 @@ public class NotificationController {
     @GetMapping(value = "/subscribe/{serialNumber}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter subscribe(
             @PathVariable String serialNumber) {
-        User user = userRepository.findBySerialNumber(serialNumber).get();
-        Long id = user.getId();
-
+        Long id = Long.parseLong(serialNumber);
         return notificationService.subscribe(id);
     }
 
     @PostMapping("/send-data")
     public void sendDataTest(@RequestBody PoseRequestDto poseRequestDto) throws JsonProcessingException {
         String serialNumber = poseRequestDto.getSerialNumber();
-        User user = userRepository.findBySerialNumber(serialNumber).get();
-        Long id = user.getId();
-
+        Long id = Long.parseLong(serialNumber);
         PoseRespondDto poseRespondDto = new PoseRespondDto(label_to_string(poseRequestDto.getLabel()),poseRequestDto.getWifi(),poseRequestDto.getCamera());
         String poseR = mapper.writeValueAsString(poseRespondDto);
         notificationService.notify(id, poseR);
