@@ -1,5 +1,7 @@
 package swith.backend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ public class NotificationController {
     private final NotificationService notificationService;
     private final UserRepository userRepository;
     private final PoseRepository poseRepository;
+    private final ObjectMapper mapper;
 
     @GetMapping(value = "/subscribe/{serialNumber}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter subscribe(
@@ -30,7 +33,7 @@ public class NotificationController {
     }
 
     @PostMapping("/send-data")
-    public void sendDataTest(@RequestBody PoseRequestDto poseRequestDto) {
+    public void sendDataTest(@RequestBody PoseRequestDto poseRequestDto) throws JsonProcessingException {
         String serialNumber = poseRequestDto.getSerialNumber();
         User user = userRepository.findBySerialNumber(serialNumber).get();
         Long id = user.getId();
@@ -45,6 +48,7 @@ public class NotificationController {
         poseRepository.save(pose);
 
         PoseRespondDto poseRespondDto = new PoseRespondDto(pose.getLabel_s(),pose.getWifi(),pose.getCamera());
-        notificationService.notify(id, poseRespondDto);
+        String poseR = mapper.writeValueAsString(poseRespondDto);
+        notificationService.notify(id, poseR);
     }
 }
