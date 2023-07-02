@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import swith.backend.domain.Pose;
 import swith.backend.domain.User;
 import swith.backend.dto.PoseRequestDto;
+import swith.backend.dto.PoseRespondDto;
 import swith.backend.repository.PoseRepository;
 import swith.backend.repository.UserRepository;
 import swith.backend.service.NotificationService;
@@ -31,7 +32,6 @@ public class NotificationController {
     @PostMapping("/send-data")
     public void sendDataTest(@RequestBody PoseRequestDto poseRequestDto) {
         String serialNumber = poseRequestDto.getSerialNumber();
-        int Log = poseRequestDto.getLabel();
         User user = userRepository.findBySerialNumber(serialNumber).get();
         Long id = user.getId();
 
@@ -42,9 +42,9 @@ public class NotificationController {
                 .build();
         pose.label_to_string(poseRequestDto.getLabel());
         pose.setUser(user);
-
         poseRepository.save(pose);
 
-        notificationService.notify(id, poseRequestDto);
+        PoseRespondDto poseRespondDto = new PoseRespondDto(pose.getLabel_s(),pose.getWifi(),pose.getCamera());
+        notificationService.notify(id, poseRespondDto);
     }
 }
