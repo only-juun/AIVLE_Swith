@@ -9,5 +9,6 @@ import lombok.*;
 @Getter
 @Setter @ToString
 public class S3DownloadDto {
-    private String originalFileName;
+    private String uploadFileName;
+    private String uploadFilePath;
 }
