@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.User;
 import swith.backend.dto.*;
-import swith.backend.exception.ExceptionCode;
-import swith.backend.exception.UserException;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.service.UserService;
 
