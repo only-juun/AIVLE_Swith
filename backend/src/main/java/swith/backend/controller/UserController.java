@@ -101,16 +101,10 @@ public class UserController {
     /**
      * 회원정보 수정
      */
-    @PutMapping("/edit")
-    public void editUserInfo(@RequestBody UserEditDto userEditDto) {
-        String encodedPassword = passwordEncoder.encode(userEditDto.getPassword());
-        User user = User.builder()
-                .nickname(userEditDto.getNickname())
-                .password(encodedPassword)
-                .build();
-        userService.edit(user);
-
-
+    @PutMapping("/edit/{userId}")
+    public void editUserInfo(@PathVariable("userId") Long userId,
+                             @RequestBody UserEditDto userEditDto) {
+        userService.edit(userId, userEditDto);
     }
 
     // TODO: 회원탈퇴

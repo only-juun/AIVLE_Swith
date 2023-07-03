@@ -12,15 +12,22 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import swith.backend.domain.Post;
 import swith.backend.domain.User;
 import swith.backend.dto.MailDto;
+import swith.backend.dto.PostUpdateDto;
+import swith.backend.dto.UserEditDto;
 import swith.backend.exception.ExceptionCode;
+import swith.backend.exception.PostException;
+import swith.backend.exception.PostExceptionType;
 import swith.backend.exception.UserException;
 import swith.backend.jwt.JwtTokenProvider;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.repository.UserRepository;
 
 import java.util.Optional;
+
+import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @Service
 @Transactional(readOnly = true)
@@ -132,8 +139,16 @@ public class UserService {
     }
 
     @Transactional
-    public User edit(User user) {
-        verifiedExistedNickname(user.getNickname());
+    public User edit(Long userId, UserEditDto userEditDto) {
+
+
+        User user = userRepository.findById(userId).orElseThrow();
+        String nickname = userEditDto.getNickname();
+        String password = userEditDto.getPassword();
+        verifiedExistedNickname(nickname);
+        user.updateNickname(nickname);
+        user.updatePassword(passwordEncoder, password);
+
         return userRepository.save(user);
     }
 
