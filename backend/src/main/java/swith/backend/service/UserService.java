@@ -107,6 +107,7 @@ public class UserService {
         verifiedExistedEmail(user.getEmail());
         verifiedExistedSerialNumber(user.getSerialNumber());
         verifiedExistedPhoneNumber(user.getPhoneNumber());
+        verifiedExistedNickname(user.getNickname());
         return userRepository.save(user);
     }
 
@@ -130,6 +131,12 @@ public class UserService {
         return tokenInfo;
     }
 
+    @Transactional
+    public User edit(User user) {
+        verifiedExistedNickname(user.getNickname());
+        return userRepository.save(user);
+    }
+
     private void verifiedExistedEmail(String email) {
         Optional<User> findUser = userRepository.findByEmail(email);
         if (findUser.isPresent()) {
@@ -148,6 +155,13 @@ public class UserService {
         Optional<User> findUser = userRepository.findByPhoneNumber(phoneNumber);
         if (findUser.isPresent()) {
             throw new UserException(ExceptionCode.USER_PHONE_EXISTS);
+        }
+    }
+
+    private void verifiedExistedNickname(String nickname) {
+        Optional<User> findUser = userRepository.findByNickname(nickname);
+        if (findUser.isPresent()) {
+            throw new UserException(ExceptionCode.USER_NICKNAME_EXISTS);
         }
     }
 }

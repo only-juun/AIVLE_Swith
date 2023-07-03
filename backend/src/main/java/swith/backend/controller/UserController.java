@@ -73,8 +73,9 @@ public class UserController {
     }
 
 
-    // TODO: 아이디 찾기
-
+    /**
+     * 아이디 찾기
+     */
     @GetMapping("/find")
     public String FindIdBySerialNumber(@RequestParam("serialNumber") String serialNumber) {
 
@@ -84,22 +85,35 @@ public class UserController {
         return email;
     }
 
-    // TODO: 비밀번호 초기화
-
+    /**
+     * 비밀번호 초기화
+     */
     @PostMapping("/sendEmail")
     public void sendEmail(@RequestBody EmailRequestDto emailRequestDto) {
         String email = emailRequestDto.getEmail();
         String serialNumber = emailRequestDto.getSerialNumber();
-        userService.checkUser(email,serialNumber);
+        userService.checkUser(email, serialNumber);
         MailDto m = userService.createMailAndChangePassword(email);
         userService.mailSend(m);
 
     }
 
-    // TODO: 회원정보 수정
+    /**
+     * 회원정보 수정
+     */
+    @PutMapping("/edit")
+    public void editUserInfo(@RequestBody UserEditDto userEditDto) {
+        String encodedPassword = passwordEncoder.encode(userEditDto.getPassword());
+        User user = User.builder()
+                .nickname(userEditDto.getNickname())
+                .password(encodedPassword)
+                .build();
+        userService.edit(user);
+
+
+    }
 
     // TODO: 회원탈퇴
-
 
 
 }

@@ -8,6 +8,7 @@ public enum ExceptionCode {
     USER_EMAIL_EXISTS(409, "Email address already in use"),
     USER_SERIAL_EXISTS(409, "Serial number already in use"),
     USER_PHONE_EXISTS(409, "Phone number already in use"),
+    USER_NICKNAME_EXISTS(409, "Nickname already in use"),
     USER_SERIAL_NO_EXISTS(409,"Serial number is empty"),
     USER_INFO_NO_MATCH(409,"User info no match");
 
