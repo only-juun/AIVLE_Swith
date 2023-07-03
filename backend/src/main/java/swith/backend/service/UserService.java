@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import swith.backend.domain.Attachment;
 import swith.backend.domain.Post;
 import swith.backend.domain.User;
 import swith.backend.dto.MailDto;
@@ -170,6 +171,15 @@ public class UserService {
 
         userRepository.save(user);
         return ResponseEntity.ok("회원 정보가 수정되었습니다");
+    }
+
+    @Transactional
+    public void delete(String serialNumber) {
+
+        User user = userRepository.findBySerialNumber(serialNumber).orElseThrow(() ->
+                new UserException(ExceptionCode.USER_NOT_FOUND));
+
+        userRepository.delete(user);
     }
 
     private void verifiedExistedEmail(String email) {

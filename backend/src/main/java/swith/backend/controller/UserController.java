@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
@@ -117,5 +118,9 @@ public class UserController {
     /**
      * 회원 탈퇴
      */
-    
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/withdraw/{serialNumber}")
+    public void delete(@PathVariable("serialNumber") String serialNumber) {
+        userService.delete(serialNumber);
+    }
 }
