@@ -2,6 +2,10 @@ package swith.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -9,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swith.backend.domain.User;
+import swith.backend.dto.MailDto;
 import swith.backend.exception.ExceptionCode;
 import swith.backend.exception.UserException;
 import swith.backend.jwt.JwtTokenProvider;
@@ -27,12 +32,75 @@ public class UserService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
+    private final JavaMailSender mailSender;
 
+    @Value("${spring.mail.username}")
+    String userEmail;
 
     public User findUser(String email) {
         return userRepository.findByEmail(email).get();
     }
 
+    public User findUserBySerialNumber(String serialNumber) {
+        Optional<User> findUser = userRepository.findBySerialNumber(serialNumber);
+        if (findUser.isEmpty()) {
+            throw new UserException(ExceptionCode.USER_NOT_FOUND);
+        }
+        return findUser.get();
+    }
+
+    public void checkUser(String email, String serialNumber) {
+        Optional<User> findUserByEmail = userRepository.findByEmail(email);
+        Optional<User> findUserBySerialNumber = userRepository.findBySerialNumber(serialNumber);
+        if (findUserByEmail.isEmpty() || findUserBySerialNumber.isEmpty()) {
+            throw new UserException(ExceptionCode.USER_NOT_FOUND);
+        }
+        if (findUserByEmail.get() != findUserBySerialNumber.get()) {
+            throw new UserException(ExceptionCode.USER_INFO_NO_MATCH);
+        }
+    }
+
+    @Transactional
+    public MailDto createMailAndChangePassword(String memberEmail) {
+        String str = getTempPassword();
+        MailDto m = new MailDto();
+        m.setAddress(memberEmail);
+        m.setTitle("S.with 임시비밀번호 안내 이메일 입니다.");
+        m.setMessage("안녕하세요. S.with 임시비밀번호 안내 관련 이메일 입니다."+" 회원님의 임시 비밀번호는 "+str+" 입니다. 로그인 후에 비밀번호를 변경해주세요.");
+        updatePassword(str,memberEmail);
+        return m;
+    }
+
+    public void updatePassword(String str, String userEmail){
+        String memberPassword = str;
+        User user = userRepository.findByEmail(userEmail).get();
+        user.updatePassword(passwordEncoder,memberPassword);
+    }
+
+    public String getTempPassword(){
+        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+        String str = "";
+
+        // 문자 배열 길이의 값을 랜덤으로 10개를 뽑아 구문을 작성함
+        int idx = 0;
+        for (int i = 0; i < 10; i++) {
+            idx = (int) (charSet.length * Math.random());
+            str += charSet[idx];
+        }
+        return str;
+    }
+
+    public void mailSend(MailDto mailDTO) {
+        System.out.println("전송 완료!");
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(mailDTO.getAddress());
+        message.setSubject(mailDTO.getTitle());
+        message.setText(mailDTO.getMessage());
+        message.setFrom(userEmail);
+        mailSender.send(message);
+    }
 
     @Transactional
     public User join(User user) {

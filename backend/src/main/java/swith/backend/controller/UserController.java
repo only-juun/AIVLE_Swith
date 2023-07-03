@@ -9,9 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.User;
-import swith.backend.dto.UserInfoByTokenDto;
-import swith.backend.dto.UserLoginRequestDto;
-import swith.backend.dto.UserSignUpRequestDto;
+import swith.backend.dto.*;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.service.UserService;
 
@@ -26,6 +24,9 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
 
+    /**
+     * 회원 정보 조회
+     */
     @GetMapping("/user")
     public ResponseEntity<UserInfoByTokenDto> getUserByEmail() {
         User user = userService.findUser(SecurityUtil.getLoginUsername());
@@ -71,13 +72,34 @@ public class UserController {
         return tokenInfo;
     }
 
-    // TODO: 회원정보 수정
+
+    // TODO: 아이디 찾기
+
+    @GetMapping("/find")
+    public String FindIdBySerialNumber(@RequestParam("serialNumber") String serialNumber) {
+
+        User userBySerialNumber = userService.findUserBySerialNumber(serialNumber);
+        String email = userBySerialNumber.getEmail();
+
+        return email;
+    }
 
     // TODO: 비밀번호 초기화
 
+    @PostMapping("/sendEmail")
+    public void sendEmail(@RequestBody EmailRequestDto emailRequestDto) {
+        String email = emailRequestDto.getEmail();
+        String serialNumber = emailRequestDto.getSerialNumber();
+        userService.checkUser(email,serialNumber);
+        MailDto m = userService.createMailAndChangePassword(email);
+        userService.mailSend(m);
+
+    }
+
+    // TODO: 회원정보 수정
+
     // TODO: 회원탈퇴
 
-    // TODO: 회원정보 조회
 
 
 }
