@@ -109,13 +109,13 @@ public class UserController {
     /**
      * 회원정보 수정
      */
-    @PutMapping("/edit/{userId}")
-    public void editUserInfo(@PathVariable("userId") Long userId,
-                             @RequestBody UserEditDto userEditDto) {
-        userService.edit(userId, userEditDto);
+    @PutMapping("/edit")
+    public void editUserInfo(@RequestBody UserEditDto userEditDto) {
+        userService.edit(userEditDto);
     }
 
-    // TODO: 회원탈퇴
-
-
+    /**
+     * 회원 탈퇴
+     */
+    
 }

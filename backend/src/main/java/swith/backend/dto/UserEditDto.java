@@ -12,4 +12,5 @@ import java.util.Optional;
 public class UserEditDto {
     private Optional<String> nickname;
     private Optional<String> password;
+    private String serialNumber;
 }

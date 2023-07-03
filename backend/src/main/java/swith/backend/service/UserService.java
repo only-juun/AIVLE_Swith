@@ -154,8 +154,8 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<String> edit(Long userId, UserEditDto userEditDto) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public ResponseEntity<String> edit(UserEditDto userEditDto) {
+        Optional<User> optionalUser = userRepository.findBySerialNumber(userEditDto.getSerialNumber());
         if (optionalUser.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
