@@ -46,6 +46,8 @@ public class SecurityConfig {
                 .antMatchers("/notifications/send-db").permitAll()
                 .antMatchers(HttpMethod.GET,"/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/users/user").denyAll()
+                .antMatchers(HttpMethod.GET,"/users/find**").denyAll()
+                .antMatchers("/users/sendEmail").permitAll()
                 .antMatchers("/users/test").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
