@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import swith.backend.dto.S3DeleteDto;
-import swith.backend.dto.S3DownloadDto;
 import swith.backend.service.S3Service;
 
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class S3Controller {
      * 파일 다운로드
      */
     @GetMapping("/download")
-    public ResponseEntity<byte[]> downloadFile(@RequestBody S3DownloadDto s3DownloadDto) throws IOException {
-        return s3Service.getFile(s3DownloadDto.getUploadFileName(), s3DownloadDto.getUploadFilePath());
+    public ResponseEntity<byte[]> downloadFile(@RequestParam("uploadFileName") String uploadFileName, @RequestParam("uploadFilePath") String uploadFilePath) throws IOException {
+        return s3Service.getFile(uploadFileName, uploadFilePath);
     }
 }
