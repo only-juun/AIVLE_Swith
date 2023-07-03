@@ -48,7 +48,7 @@ public class S3Controller {
      * 파일 다운로드
      */
     @GetMapping("/download")
-    public ResponseEntity<byte[]> downloadFile(@RequestBody S3DownloadDto s3DownloadDto) throws IOException {
-        return s3Service.getFile(s3DownloadDto.getUploadFileName(), s3DownloadDto.getUploadFilePath());
+    public ResponseEntity<byte[]> downloadFile(@RequestParam("uploadFileName") String uploadFileName, @RequestParam("uploadFilePath") String uploadFilePath) throws IOException {
+        return s3Service.getFile(uploadFileName, uploadFilePath);
     }
 }

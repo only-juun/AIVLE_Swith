@@ -146,6 +146,7 @@ public class S3Service {
         switch (type) {
             case "png":
                 return MediaType.IMAGE_PNG;
+            case "jpeg":
             case "jpg":
                 return MediaType.IMAGE_JPEG;
             default:
