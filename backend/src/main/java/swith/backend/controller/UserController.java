@@ -99,6 +99,14 @@ public class UserController {
     }
 
     /**
+     * 비밀번호 확인
+     */
+    @PostMapping("/check")
+    public ResponseEntity<String> checkPassword(@RequestBody CheckPasswordDto checkPasswordDto) {
+        return userService.checkPassword(checkPasswordDto.getEmail(), checkPasswordDto.getPassword());
+    }
+
+    /**
      * 회원정보 수정
      */
     @PutMapping("/edit/{userId}")

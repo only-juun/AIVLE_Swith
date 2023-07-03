@@ -3,6 +3,7 @@ package swith.backend.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -136,6 +137,20 @@ public class UserService {
         TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
 
         return tokenInfo;
+    }
+
+    @Transactional
+    public ResponseEntity<String> checkPassword(String email, String password) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User member = user.get();
+        if (!passwordEncoder.matches(password, member.getPassword())) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok("비밀번호가 확인되었습니다.");
     }
 
     @Transactional
