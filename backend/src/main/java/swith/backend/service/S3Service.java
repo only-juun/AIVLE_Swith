@@ -1,6 +1,5 @@
 package swith.backend.service;
 
-import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
@@ -146,6 +145,7 @@ public class S3Service {
         switch (type) {
             case "png":
                 return MediaType.IMAGE_PNG;
+            case "jpeg":
             case "jpg":
                 return MediaType.IMAGE_JPEG;
             default:
