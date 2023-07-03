@@ -55,8 +55,6 @@ public class CommentServiceImpl implements CommentService{
         if(!comment.getUser().getUsername().equals(SecurityUtil.getLoginUsername())){
             throw new CommentException(CommentExceptionType.NOT_AUTHORITY_DELETE_COMMENT);
         }
-
-//        comment.remove();
         commentRepository.delete(comment);
     }
 

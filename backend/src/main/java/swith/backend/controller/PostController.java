@@ -36,18 +36,6 @@ public class PostController {
     /**
      * 게시글 등록
      */
-//    @PostMapping("/new")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void register(@Valid @RequestBody PostSaveDto postSaveDto,
-//                         @RequestPart(value = "files") List<MultipartFile> multipartFiles) {
-//        Post post = Post.builder()
-//                .title(postSaveDto.getTitle())
-//                .content(postSaveDto.getContent())
-//                .build();
-//
-//        postService.register(post);
-//    }
-
     @PostMapping(value = "/new", consumes = {"multipart/form-data"})
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@Valid @RequestPart(value = "data") PostSaveDto postSaveDto,
@@ -79,11 +67,6 @@ public class PostController {
     /**
      * 게시글 조회
      */
-//    @GetMapping("/post/{postId}")
-//    public ResponseEntity getInfo(@PathVariable("postId") Long postId) {
-//        return ResponseEntity.ok(postService.getPostInfo(postId));
-//    }
-
     @GetMapping("/post/{postId}")
     public ResponseEntity getInfo(@PathVariable("postId") Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_FOUND));
@@ -102,7 +85,6 @@ public class PostController {
 
         postService.delete(postId);
     }
-
 
     /**
      * 게시글 페이징 조회

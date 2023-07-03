@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import swith.backend.dto.S3DeleteDto;
-import swith.backend.dto.S3DownloadDto;
 import swith.backend.service.S3Service;
 
 import java.io.IOException;

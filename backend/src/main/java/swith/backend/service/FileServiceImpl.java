@@ -37,7 +37,6 @@ public class FileServiceImpl implements FileService{
             throw new FileException(FileExceptionType.FILE_CAN_NOT_SAVE);
         }
 
-
         return filePath;
     }
 
@@ -45,7 +44,6 @@ public class FileServiceImpl implements FileService{
     public void delete(String filePath) {
         File file = new File(filePath);
 
-        //존재하지 않는데 굳이 지우나..?
         if(!file.exists()) return;
 
         if(!file.delete()) throw new FileException(FileExceptionType.FILE_CAN_NOT_DELETE);
