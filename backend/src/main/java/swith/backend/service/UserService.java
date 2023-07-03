@@ -154,17 +154,22 @@ public class UserService {
     }
 
     @Transactional
-    public User edit(Long userId, UserEditDto userEditDto) {
+    public ResponseEntity<String> edit(Long userId, UserEditDto userEditDto) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
+        User user = optionalUser.get();
 
-        User user = userRepository.findById(userId).orElseThrow();
-        String nickname = userEditDto.getNickname();
-        String password = userEditDto.getPassword();
-        verifiedExistedNickname(nickname);
-        user.updateNickname(nickname);
-        user.updatePassword(passwordEncoder, password);
+        userEditDto.getNickname().ifPresent(user::updateNickname);
+        if (userEditDto.getPassword().isPresent()) {
+            String password = userEditDto.getPassword().get();
+            user.updatePassword(passwordEncoder, password);
+        }
 
-        return userRepository.save(user);
+        userRepository.save(user);
+        return ResponseEntity.ok("회원 정보가 수정되었습니다");
     }
 
     private void verifiedExistedEmail(String email) {

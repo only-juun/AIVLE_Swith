@@ -1,19 +1,15 @@
 package swith.backend.dto;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import swith.backend.domain.User;
+
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
+@Getter
 public class UserEditDto {
-    private String nickname;
-    private String password;
-
-    @Builder
-    public UserEditDto(User user) {
-        this.nickname = user.getNickname();
-        this.password = user.getPassword();
-    }
+    private Optional<String> nickname;
+    private Optional<String> password;
 }
