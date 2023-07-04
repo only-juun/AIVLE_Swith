@@ -2,10 +2,7 @@ package swith.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swith.backend.config.SecurityUtil;
@@ -18,6 +15,10 @@ import swith.backend.exception.*;
 import swith.backend.repository.PostRepository;
 import swith.backend.repository.PostRepositorySupport;
 import swith.backend.repository.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
@@ -112,11 +113,23 @@ public class PostServiceImpl implements PostService{
         return postList;
     }
 
-    @Override
-    public Page<Post> PostSearch(PostSearch postSearch,int page,int size) {
-        Pageable pageable = PageRequest.of(page,size,Sort.by("createdDate").descending());
-        Page<Post> postList = postRepositorySupport.findAllWithQuerydsl(postSearch,pageable);
+//    @Override
+//    public Page<Post> PostSearch(PostSearch postSearch,Pageable pageable) {
+////        Pageable pageable = PageRequest.of(page,size,Sort.by("createdDate").descending());
+////        Page<Post> postList = postRepositorySupport.findAllWithQuerydsl(postSearch,pageable);
+//
+////        return postList;
+//    }
 
-        return postList;
+//    @Override
+//    public List<Post> getSearchedPost(PostSearch postSearch) {
+//        String type = postSearch.getType();
+//        String content = postSearch.getContent();
+//        Optional<List<Post>> searchPost = postRepository.findSearchPost(postSearch);
+//        return searchPost.get();
+//    }
+
+    public PageImpl<Post> getPagedSearchedPosts(PostSearch postSearch, Pageable pageable){
+        return postRepositorySupport.findCustomSearchResultsWithPagination(postSearch,pageable);
     }
 }

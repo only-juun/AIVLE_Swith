@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,16 +121,34 @@ public class PostController {
     }
 
     @GetMapping("/search")
-    public Page<SearchRespondDto> getCondList(@RequestParam("page") int page,@ModelAttribute PostSearch postSearch){
-        log.info("{},{}",postSearch.getTitle(),postSearch.getWriter());
-        Page<Post> posts = postService.PostSearch(postSearch,page,2);
-        log.info("total:{}",posts.getTotalPages());
-        log.info("postsearch {}, {}",postSearch.getWriter(),postSearch.getTitle());
+    public Page<SearchRespondDto> getCondList(@RequestParam("type") String type,
+                                              @RequestParam("content") String content,
+                                              @PageableDefault(size=10,sort="createdDate",direction = Sort.Direction.DESC) Pageable pageable){
 
-        List<SearchRespondDto> result = posts.stream()
+
+
+        PostSearch postSearch = PostSearch.builder()
+                .type(type)
+                .content(content)
+                .build();
+
+//        List<Post> posts = postService.getSearchedPost(postSearch);
+
+        PageImpl<Post> pagedSearchedPosts = postService.getPagedSearchedPosts(postSearch,pageable);
+
+        List<SearchRespondDto> result = pagedSearchedPosts.stream()
                 .map(p -> new SearchRespondDto(p))
                 .collect(Collectors.toList());
         return new PageImpl<>(result);
 
+//        Page<Post> postListPage = postService.PostSearch(postSearch,pageable);
+
+//        Page<Post> posts = postService.PostSearch(postSearch,page,10);
+//        log.info("total:{}",posts.getTotalPages());
+//
+//        List<SearchRespondDto> result = posts.stream()
+//                .map(p -> new SearchRespondDto(p))
+//                .collect(Collectors.toList());
+//        return new PageImpl<>(result);
     }
 }

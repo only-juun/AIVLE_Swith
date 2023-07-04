@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class PostSearch {
-    private String title;
-    private String writer;
+    private String type;
+    private String content;
 }
