@@ -1,6 +1,8 @@
 package swith.backend.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import swith.backend.domain.Post;
 import swith.backend.domain.PostSearch;
 import swith.backend.dto.PostInfoDto;
@@ -41,12 +43,10 @@ public interface PostService {
     public Page<Post> getPageList(int size);
 
     /**
-     * 검색 기능을 활용한 페이지 조회
+     * 검색 쿼리로 페이지 조회
+     * @param postSearch
+     * @param pageable
+     * @return
      */
-    public Page<Post> PostSearch(PostSearch postSearch,int page,int size);
 
-    /**
-     * 사용자의 게시글 전부 조회
-     */
-    public List<Post> getPostsByUserId(Long userId);
 }
