@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
 import swith.backend.domain.User;
@@ -15,6 +16,8 @@ import swith.backend.jwt.TokenInfo;
 import swith.backend.service.UserService;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -36,6 +39,7 @@ public class UserController {
                 .nickname(user.getNickname())
                 .serialNumber(user.getSerialNumber())
                 .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
                 .build();
         return ResponseEntity.ok(userInfoByTokenDto);
     }
@@ -46,9 +50,31 @@ public class UserController {
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity singUp(@Valid @RequestBody UserSignUpRequestDto userSignUpRequestDto, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+//        }
+//        if (bindingResult.hasErrors()) {
+//            Map<String, String> errorMap = new HashMap<>();
+//            for (FieldError error : bindingResult.getFieldErrors()) {
+//                errorMap.put(error.getField(), error.getDefaultMessage());
+//            }
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
+//        }
+
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+            StringBuilder errorMessage = new StringBuilder();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errorMessage.append(error.getDefaultMessage()).append(", ");
+            }
+            errorMessage.delete(errorMessage.length() - 2, errorMessage.length());
+
+            Map<String, Object> errorMap = new HashMap<>();
+            errorMap.put("status", HttpStatus.BAD_REQUEST.value());
+            errorMap.put("message", errorMessage.toString());
+
+            return ResponseEntity.badRequest().body(errorMap);
         }
+
         String encodedPassword = passwordEncoder.encode(userSignUpRequestDto.getPassword());
         User user = User.builder()
                 .name(userSignUpRequestDto.getName())
@@ -60,7 +86,8 @@ public class UserController {
                 .build();
         user.getRoles().add("USER");
         userService.join(user);
-        return null;
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
