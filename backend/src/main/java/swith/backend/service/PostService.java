@@ -48,6 +48,7 @@ public interface PostService {
      * @param pageable
      * @return
      */
+
     public PageImpl<Post> getPagedSearchedPosts(PostSearch postSearch, Pageable pageable);
 
 }
