@@ -2,6 +2,8 @@ package swith.backend.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import swith.backend.service.NotificationService;
 @RestController
 @RequestMapping("/notifications")
 @RequiredArgsConstructor
+@Tag(name = "notifications", description = "AI 모델 API")
 public class NotificationController {
     private final NotificationService notificationService;
     private final UserRepository userRepository;
@@ -24,6 +27,7 @@ public class NotificationController {
     private final ObjectMapper mapper;
 
     @GetMapping(value = "/subscribe/{serialNumber}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @Operation(summary = "subscribe ai", description = "AI 모델 구독하기")
     public SseEmitter subscribe(
             @PathVariable String serialNumber) {
         Long id = Long.parseLong(serialNumber);
@@ -31,6 +35,7 @@ public class NotificationController {
     }
 
     @PostMapping("/send-data")
+    @Operation(summary = "sendData ai", description = "웹에 데이터 보내기")
     public void sendDataTest(@RequestBody PoseRequestDto poseRequestDto) throws JsonProcessingException {
         String serialNumber = poseRequestDto.getSerialNumber();
         Long id = Long.parseLong(serialNumber);
@@ -40,6 +45,7 @@ public class NotificationController {
     }
 
     @PostMapping("/send-db")
+    @Operation(summary = "sendData db", description = "db에 데이터 보내기")
     public void sendDataDb(@RequestBody PoseRequestDto poseRequestDto){
         String serialNumber = poseRequestDto.getSerialNumber();
         User user = userRepository.findBySerialNumber(serialNumber).get();
