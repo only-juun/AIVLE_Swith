@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import swith.backend.config.SecurityUtil;
@@ -99,21 +100,27 @@ public class UserController {
     }
 
     /**
+     * 비밀번호 확인
+     */
+    @PostMapping("/check")
+    public ResponseEntity<String> checkPassword(@RequestBody CheckPasswordDto checkPasswordDto) {
+        return userService.checkPassword(checkPasswordDto.getEmail(), checkPasswordDto.getPassword());
+    }
+
+    /**
      * 회원정보 수정
      */
     @PutMapping("/edit")
     public void editUserInfo(@RequestBody UserEditDto userEditDto) {
-        String encodedPassword = passwordEncoder.encode(userEditDto.getPassword());
-        User user = User.builder()
-                .nickname(userEditDto.getNickname())
-                .password(encodedPassword)
-                .build();
-        userService.edit(user);
-
-
+        userService.edit(userEditDto);
     }
 
-    // TODO: 회원탈퇴
-
-
+    /**
+     * 회원 탈퇴
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/withdraw/{serialNumber}")
+    public void delete(@PathVariable("serialNumber") String serialNumber) {
+        userService.delete(serialNumber);
+    }
 }

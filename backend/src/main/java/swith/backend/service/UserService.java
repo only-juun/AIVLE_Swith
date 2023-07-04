@@ -3,6 +3,7 @@ package swith.backend.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,15 +13,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import swith.backend.domain.Attachment;
+import swith.backend.domain.Post;
 import swith.backend.domain.User;
 import swith.backend.dto.MailDto;
+import swith.backend.dto.PostUpdateDto;
+import swith.backend.dto.UserEditDto;
 import swith.backend.exception.ExceptionCode;
+import swith.backend.exception.PostException;
+import swith.backend.exception.PostExceptionType;
 import swith.backend.exception.UserException;
 import swith.backend.jwt.JwtTokenProvider;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.repository.UserRepository;
 
 import java.util.Optional;
+
+import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @Service
 @Transactional(readOnly = true)
@@ -132,9 +141,45 @@ public class UserService {
     }
 
     @Transactional
-    public User edit(User user) {
-        verifiedExistedNickname(user.getNickname());
-        return userRepository.save(user);
+    public ResponseEntity<String> checkPassword(String email, String password) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User member = user.get();
+        if (!passwordEncoder.matches(password, member.getPassword())) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok("비밀번호가 확인되었습니다.");
+    }
+
+    @Transactional
+    public ResponseEntity<String> edit(UserEditDto userEditDto) {
+        Optional<User> optionalUser = userRepository.findBySerialNumber(userEditDto.getSerialNumber());
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = optionalUser.get();
+
+        userEditDto.getNickname().ifPresent(user::updateNickname);
+        if (userEditDto.getPassword().isPresent()) {
+            String password = userEditDto.getPassword().get();
+            user.updatePassword(passwordEncoder, password);
+        }
+
+        userRepository.save(user);
+        return ResponseEntity.ok("회원 정보가 수정되었습니다");
+    }
+
+    @Transactional
+    public void delete(String serialNumber) {
+
+        User user = userRepository.findBySerialNumber(serialNumber).orElseThrow(() ->
+                new UserException(ExceptionCode.USER_NOT_FOUND));
+
+        userRepository.delete(user);
     }
 
     private void verifiedExistedEmail(String email) {

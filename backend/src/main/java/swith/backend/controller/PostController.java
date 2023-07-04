@@ -80,9 +80,7 @@ public class PostController {
      */
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/post/{postId}")
-    @Transactional
     public void delete(@PathVariable("postId") Long postId) {
-
         postService.delete(postId);
     }
 

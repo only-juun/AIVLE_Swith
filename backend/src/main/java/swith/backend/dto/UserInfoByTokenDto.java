@@ -15,11 +15,13 @@ public class UserInfoByTokenDto {
     private String nickname;
     private String email;
     private String serialNumber;
+    private String phoneNumber;
 
-    public UserInfoByTokenDto(String name, String nickname, String email, String serialNumber) {
+    public UserInfoByTokenDto(String name, String nickname, String email, String serialNumber, String phoneNumber) {
         this.name = name;
         this.nickname = nickname;
         this.email = email;
         this.serialNumber = serialNumber;
+        this.phoneNumber = phoneNumber;
     }
 }
