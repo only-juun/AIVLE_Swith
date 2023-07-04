@@ -16,6 +16,7 @@ from tensorflow import keras
 import requests
 import boto3
 
+# AWS 자격 증명 설정
 
 # S3 클라이언트 생성
 s3_client = session.client('s3')
@@ -191,13 +192,7 @@ def capture_webcam_screen(output_folder, model_path,cmodel_path):
             preprocess_single_image(image_name, csv_out_path, images_out_folder, model_path)
             camera_predi = classifier(cmodel_path, csv_out_path)
             print(camera_predi) ##########여기가 예측된 결과 출력하는 부분
-            #AWS 에 저 코드 됩니다.
-            #############################################
-            # if predi == 3:
-            #     보낸다
-            # elsif
-
-            ################################################
+            
             print(f'Image captured: {image_name}')
 
         time.sleep(3)  # Wait for 1 second
@@ -236,7 +231,7 @@ def capture_webcam_screen(output_folder, model_path,cmodel_path):
         #write camera's serialNumber
         d_send["serialNumber"] = "123456"
 
-        #할머늬잉
+
         if child:
             if wifi_predict == "backlay" and camera_predi == 0:
                 d_send["label"] = 1
