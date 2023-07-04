@@ -37,11 +37,24 @@ public class Pose extends BaseTimeEntity {
         this.user = user;
     }
 
+//    public void label_to_string(int label) {
+//        if (label == 0) {
+//            this.label_s = "낙상이 감지되었습니다.";
+//        } else if (label == 1) {
+//            this.label_s = "뒤집힘이 감지되었습니다.";
+//        } else {
+//            this.label_s = "사각 지대에서 움직임이 감지되었습니다.";
+//        }
+//    }
     public void label_to_string(int label) {
         if (label == 0) {
-            this.label_s = "낙상이 감지되었습니다.";
+            this.label_s = "아이의 낙상이 감지되었습니다.";
         } else if (label == 1) {
-            this.label_s = "뒤집힘이 감지되었습니다.";
+            this.label_s = "아이의 뒤집힘이 감지되었습니다.";
+        } else if (label == 2){
+            this.label_s = "사각 지대에서 움직임이 감지되었습니다.";
+        } else if (label == 3) {
+            this.label_s = "낙상이 감지되었습니다.";
         } else {
             this.label_s = "사각 지대에서 움직임이 감지되었습니다.";
         }

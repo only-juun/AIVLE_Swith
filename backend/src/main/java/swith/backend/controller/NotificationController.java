@@ -39,6 +39,7 @@ public class NotificationController {
     public void sendDataTest(@RequestBody PoseRequestDto poseRequestDto) throws JsonProcessingException {
         String serialNumber = poseRequestDto.getSerialNumber();
         Long id = Long.parseLong(serialNumber);
+
         PoseRespondDto poseRespondDto = new PoseRespondDto(label_to_string(poseRequestDto.getLabel()),poseRequestDto.getWifi(),poseRequestDto.getCamera());
         String poseR = mapper.writeValueAsString(poseRespondDto);
         notificationService.notify(id, poseR);
@@ -61,9 +62,13 @@ public class NotificationController {
     }
     public String label_to_string(int label) {
         if (label == 0) {
-            return "낙상이 감지되었습니다.";
+            return "아이의 낙상이 감지되었습니다.";
         } else if (label == 1) {
-            return "뒤집힘이 감지되었습니다.";
+            return "아이의 뒤집힘이 감지되었습니다.";
+        } else if (label == 2){
+            return "위험 지대에서 아이의 행동이 감지되었습니다.";
+        } else if (label == 3) {
+            return "낙상이 감지되었습니다.";
         } else {
             return "사각 지대에서 움직임이 감지되었습니다.";
         }
