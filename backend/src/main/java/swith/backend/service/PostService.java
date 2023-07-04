@@ -50,4 +50,9 @@ public interface PostService {
      */
     public PageImpl<Post> getPagedSearchedPosts(PostSearch postSearch, Pageable pageable);
 
+    /**
+     * 회원 게시글 목록 조회
+     */
+    public List<Post> getPostsByUserId(Long userId);
+
 }
