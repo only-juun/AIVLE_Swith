@@ -18,6 +18,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @EntityGraph(attributePaths = {"user"})
     Optional<Post> findWithUserById(Long postId);
 
+    Optional<List<Post>> findAllByUserId(Long userId);
+
     @Override
     void delete(Post entity);
 

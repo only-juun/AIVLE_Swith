@@ -62,6 +62,7 @@ public class PostServiceImpl implements PostService{
      * 게시글 삭제
      */
     @Override
+    @Transactional
     public void delete(Long id) {
 
         Post post = postRepository.findById(id).orElseThrow(() ->
@@ -69,11 +70,14 @@ public class PostServiceImpl implements PostService{
 
         checkAuthority(post, PostExceptionType.NOT_AUTHORITY_DELETE_POST);
 
-        for (Attachment attachment : post.getAttachments()) {
-            String uploadFileName = attachment.getUploadFileName();
-            String uploadFilePath = attachment.getUploadFilePath();
-            s3Service.deleteFile(uploadFilePath, uploadFileName);
+        if (!post.getAttachments().isEmpty()) {
+            for (Attachment attachment : post.getAttachments()) {
+                String uploadFileName = attachment.getUploadFileName();
+                String uploadFilePath = attachment.getUploadFilePath();
+                s3Service.deleteFile(uploadFilePath, uploadFileName);
+            }
         }
+
         postRepository.delete(post);
     }
 
@@ -131,5 +135,18 @@ public class PostServiceImpl implements PostService{
 
     public PageImpl<Post> getPagedSearchedPosts(PostSearch postSearch, Pageable pageable){
         return postRepositorySupport.findCustomSearchResultsWithPagination(postSearch,pageable);
+    }
+
+    @Override
+    public List<Post> getPostsByUserId(Long userId) {
+        List<Post> posts = new ArrayList<>();
+
+        Optional<List<Post>> allPosts = postRepository.findAllByUserId(userId);
+
+        if (!allPosts.isEmpty()) {
+            posts = allPosts.get();
+        }
+
+        return posts;
     }
 }

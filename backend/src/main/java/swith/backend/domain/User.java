@@ -42,11 +42,11 @@ public class User implements UserDetails {
     private List<Thumb> thumbs = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -95,9 +95,9 @@ public class User implements UserDetails {
     }
 
     //==회원 정보 수정==//
-    public void updateName(String name) {
-        this.name = name;
-    }
+//    public void updateName(String name) {
+//        this.name = name;
+//    }
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;

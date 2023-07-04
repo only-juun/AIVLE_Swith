@@ -3,7 +3,7 @@ package swith.backend.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailSender;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,14 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import swith.backend.domain.Post;
 import swith.backend.domain.User;
 import swith.backend.dto.MailDto;
+import swith.backend.dto.UserEditDto;
 import swith.backend.exception.ExceptionCode;
 import swith.backend.exception.UserException;
 import swith.backend.jwt.JwtTokenProvider;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +36,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
+    private final PostService postService;
 
     @Value("${spring.mail.username}")
     String userEmail;
@@ -107,6 +111,7 @@ public class UserService {
         verifiedExistedEmail(user.getEmail());
         verifiedExistedSerialNumber(user.getSerialNumber());
         verifiedExistedPhoneNumber(user.getPhoneNumber());
+        verifiedExistedNickname(user.getNickname());
         return userRepository.save(user);
     }
 
@@ -130,6 +135,53 @@ public class UserService {
         return tokenInfo;
     }
 
+    @Transactional
+    public ResponseEntity<String> checkPassword(String email, String password) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User member = user.get();
+        if (!passwordEncoder.matches(password, member.getPassword())) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok("비밀번호가 확인되었습니다.");
+    }
+
+    @Transactional
+    public ResponseEntity<String> edit(UserEditDto userEditDto) {
+        Optional<User> optionalUser = userRepository.findBySerialNumber(userEditDto.getSerialNumber());
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = optionalUser.get();
+
+        userEditDto.getNickname().ifPresent(user::updateNickname);
+        if (userEditDto.getPassword().isPresent()) {
+            String password = userEditDto.getPassword().get();
+            user.updatePassword(passwordEncoder, password);
+        }
+
+        userRepository.save(user);
+        return ResponseEntity.ok("회원 정보가 수정되었습니다");
+    }
+
+    @Transactional
+    public void delete(String serialNumber) {
+
+        User user = userRepository.findBySerialNumber(serialNumber).orElseThrow(() ->
+                new UserException(ExceptionCode.USER_NOT_FOUND));
+
+        List<Post> posts = postService.getPostsByUserId(user.getId());
+        for (Post post : posts) {
+            postService.delete(post.getId());
+        }
+
+        userRepository.delete(user);
+    }
+
     private void verifiedExistedEmail(String email) {
         Optional<User> findUser = userRepository.findByEmail(email);
         if (findUser.isPresent()) {
@@ -148,6 +200,13 @@ public class UserService {
         Optional<User> findUser = userRepository.findByPhoneNumber(phoneNumber);
         if (findUser.isPresent()) {
             throw new UserException(ExceptionCode.USER_PHONE_EXISTS);
+        }
+    }
+
+    private void verifiedExistedNickname(String nickname) {
+        Optional<User> findUser = userRepository.findByNickname(nickname);
+        if (findUser.isPresent()) {
+            throw new UserException(ExceptionCode.USER_NICKNAME_EXISTS);
         }
     }
 }
