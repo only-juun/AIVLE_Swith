@@ -1,5 +1,7 @@
 package swith.backend.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,7 @@ import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 @RequiredArgsConstructor
 @RequestMapping("/posts")
 @Slf4j
+@Tag(name = "posts", description = "게시물 API")
 public class PostController {
 
     private final PostService postService;
@@ -36,8 +39,10 @@ public class PostController {
     /**
      * 게시글 등록
      */
+    @Operation(summary = "register post", description = "게시글 등록하기")
     @PostMapping(value = "/new", consumes = {"multipart/form-data"})
     @ResponseStatus(HttpStatus.CREATED)
+
     public void register(@Valid @RequestPart(value = "data") PostSaveDto postSaveDto,
                          @RequestPart(value = "files", required = false) List<MultipartFile> multipartFiles) {
         Post post = Post.builder()
@@ -55,6 +60,7 @@ public class PostController {
     /**
      * 게시글 수정
      */
+    @Operation(summary = "update post", description = "게시글 수정하기")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/edit/{postId}")
     public void update(@PathVariable("postId") Long postId,
@@ -67,6 +73,7 @@ public class PostController {
     /**
      * 게시글 조회
      */
+    @Operation(summary = "getInfo post", description = "게시글 단건 조회하기")
     @GetMapping("/post/{postId}")
     public ResponseEntity getInfo(@PathVariable("postId") Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_FOUND));
@@ -78,6 +85,7 @@ public class PostController {
     /**
      * 게시글 삭제
      */
+    @Operation(summary = "delete post", description = "게시글 삭제하기")
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/post/{postId}")
     public void delete(@PathVariable("postId") Long postId) {
@@ -87,6 +95,7 @@ public class PostController {
     /**
      * 게시글 페이징 조회
      */
+    @Operation(summary = "paging posts", description = "게시글 목록 조회하기")
     @GetMapping("/postList")
     public Page<PostsRespondDto> getPostList(@RequestParam("page") int page) {
         Page<Post> posts = postService.getPostList(page, 10);
@@ -106,6 +115,7 @@ public class PostController {
     /**
      * 게시글 전체 페이지 번호와 전체 데이터 수
      */
+    @Operation(summary = "board paging", description = "게시글 수정하기")
     @GetMapping("/pageNumber")
     public PageNumberDto pageNumber() {
         Page<Post> posts = postService.getPageList(10);
@@ -115,6 +125,7 @@ public class PostController {
         return new PageNumberDto(totalPages, totalElements);
     }
 
+    @Operation(summary = "search posts", description = "게시글 검색하기")
     @GetMapping("/search")
     public Page<SearchRespondDto> getCondList(@RequestParam("page") int page,@ModelAttribute PostSearch postSearch){
         log.info("{},{}",postSearch.getTitle(),postSearch.getWriter());

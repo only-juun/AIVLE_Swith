@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,23 +12,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import swith.backend.domain.Attachment;
 import swith.backend.domain.Post;
 import swith.backend.domain.User;
 import swith.backend.dto.MailDto;
-import swith.backend.dto.PostUpdateDto;
 import swith.backend.dto.UserEditDto;
 import swith.backend.exception.ExceptionCode;
-import swith.backend.exception.PostException;
-import swith.backend.exception.PostExceptionType;
 import swith.backend.exception.UserException;
 import swith.backend.jwt.JwtTokenProvider;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
-
-import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @Service
 @Transactional(readOnly = true)
@@ -42,6 +36,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
+    private final PostService postService;
 
     @Value("${spring.mail.username}")
     String userEmail;
@@ -178,6 +173,11 @@ public class UserService {
 
         User user = userRepository.findBySerialNumber(serialNumber).orElseThrow(() ->
                 new UserException(ExceptionCode.USER_NOT_FOUND));
+
+        List<Post> posts = postService.getPostsByUserId(user.getId());
+        for (Post post : posts) {
+            postService.delete(post.getId());
+        }
 
         userRepository.delete(user);
     }

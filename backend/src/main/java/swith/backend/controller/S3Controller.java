@@ -1,5 +1,7 @@
 package swith.backend.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/file")
 @RequiredArgsConstructor
+@Tag(name = "file", description = "첨부파일 API")
 public class S3Controller {
 
     private final S3Service s3Service;
@@ -21,6 +24,7 @@ public class S3Controller {
     /**
      * 파일 업로드
      */
+    @Operation(summary = "upload files", description = "첨부파일 업로드하기")
     @PostMapping("/{postId}/upload")
     public ResponseEntity<Object> uploadFiles(
             @PathVariable("postId") Long postId,
@@ -35,6 +39,7 @@ public class S3Controller {
     /**
      * 파일 삭제
      */
+    @Operation(summary = "delete files", description = "첨부파일 삭제하기")
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteFile(
             @RequestBody S3DeleteDto s3DeleteDto) {
@@ -46,6 +51,7 @@ public class S3Controller {
     /**
      * 파일 다운로드
      */
+    @Operation(summary = "download files", description = "첨부파일 다운로드하기")
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadFile(@RequestParam("uploadFileName") String uploadFileName, @RequestParam("uploadFilePath") String uploadFilePath) throws IOException {
         return s3Service.getFile(uploadFileName, uploadFilePath);

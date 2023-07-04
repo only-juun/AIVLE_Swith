@@ -6,6 +6,8 @@ import swith.backend.domain.PostSearch;
 import swith.backend.dto.PostInfoDto;
 import swith.backend.dto.PostUpdateDto;
 
+import java.util.List;
+
 
 public interface PostService {
     /**
@@ -42,4 +44,9 @@ public interface PostService {
      * 검색 기능을 활용한 페이지 조회
      */
     public Page<Post> PostSearch(PostSearch postSearch,int page,int size);
+
+    /**
+     * 사용자의 게시글 전부 조회
+     */
+    public List<Post> getPostsByUserId(Long userId);
 }
