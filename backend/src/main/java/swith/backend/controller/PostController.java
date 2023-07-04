@@ -2,12 +2,11 @@ package swith.backend.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -118,7 +117,7 @@ public class PostController {
     /**
      * 게시글 전체 페이지 번호와 전체 데이터 수
      */
-    @Operation(summary = "board paging", description = "게시글 수정하기")
+    @Operation(summary = "board paging", description = "게시글 전체 페이지 번호, 전체 페이지 수")
     @GetMapping("/pageNumber")
     public PageNumberDto pageNumber() {
         Page<Post> posts = postService.getPageList(10);
@@ -128,36 +127,46 @@ public class PostController {
         return new PageNumberDto(totalPages, totalElements);
     }
 
+//    @Operation(summary = "board search paging", description = "게시글 검색 관련 개수")
+//    @GetMapping("/pageNumber")
+//    public PageNumberDto pageNumberBySearch() {
+//        Page<Post> posts = postService.getPageList(10);
+//        int totalPages = posts.getTotalPages();
+//        long totalElements = posts.getTotalElements();
+//
+//        return new PageNumberDto(totalPages, totalElements);
+//    }
+
     @Operation(summary = "search posts", description = "게시글 검색하기")
     @GetMapping("/search")
-    public Page<SearchRespondDto> getCondList(@RequestParam("type") String type,
+    public ResponseEntity<Result> getCondList(@RequestParam("type") String type,
                                               @RequestParam("content") String content,
+                                              @RequestParam("page") int page,
                                               @PageableDefault(size=10,sort="createdDate",direction = Sort.Direction.DESC) Pageable pageable){
-
-
 
         PostSearch postSearch = PostSearch.builder()
                 .type(type)
                 .content(content)
                 .build();
 
-//        List<Post> posts = postService.getSearchedPost(postSearch);
+        pageable = PageRequest.of(page,10);
 
         PageImpl<Post> pagedSearchedPosts = postService.getPagedSearchedPosts(postSearch,pageable);
 
+        log.info("{} and {}",pagedSearchedPosts.getTotalPages(),pagedSearchedPosts.getTotalElements());
         List<SearchRespondDto> result = pagedSearchedPosts.stream()
                 .map(p -> new SearchRespondDto(p))
                 .collect(Collectors.toList());
-        return new PageImpl<>(result);
+        Result result_dto = new Result<>(result,pagedSearchedPosts.getTotalPages(),pagedSearchedPosts.getTotalElements());
+        return ResponseEntity.ok(result_dto);
 
-//        Page<Post> postListPage = postService.PostSearch(postSearch,pageable);
+    }
 
-//        Page<Post> posts = postService.PostSearch(postSearch,page,10);
-//        log.info("total:{}",posts.getTotalPages());
-//
-//        List<SearchRespondDto> result = posts.stream()
-//                .map(p -> new SearchRespondDto(p))
-//                .collect(Collectors.toList());
-//        return new PageImpl<>(result);
+    @Data
+    @AllArgsConstructor
+    public class Result<T> {
+        private T data;
+        private int totalPages;
+        private long totalElements;
     }
 }
