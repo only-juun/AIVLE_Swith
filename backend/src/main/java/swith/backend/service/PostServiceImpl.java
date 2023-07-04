@@ -19,6 +19,10 @@ import swith.backend.repository.PostRepository;
 import swith.backend.repository.PostRepositorySupport;
 import swith.backend.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
 
 @Service
@@ -118,5 +122,18 @@ public class PostServiceImpl implements PostService{
         Page<Post> postList = postRepositorySupport.findAllWithQuerydsl(postSearch,pageable);
 
         return postList;
+    }
+
+    @Override
+    public List<Post> getPostsByUserId(Long userId) {
+        List<Post> posts = new ArrayList<>();
+
+        Optional<List<Post>> allPosts = postRepository.findAllByUserId(userId);
+
+        if (!allPosts.isEmpty()) {
+            posts = allPosts.get();
+        }
+
+        return posts;
     }
 }

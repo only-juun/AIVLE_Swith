@@ -27,6 +27,7 @@ import swith.backend.jwt.JwtTokenProvider;
 import swith.backend.jwt.TokenInfo;
 import swith.backend.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static swith.backend.exception.PostExceptionType.POST_NOT_FOUND;
@@ -42,6 +43,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
+    private final PostService postService;
 
     @Value("${spring.mail.username}")
     String userEmail;
@@ -178,6 +180,11 @@ public class UserService {
 
         User user = userRepository.findBySerialNumber(serialNumber).orElseThrow(() ->
                 new UserException(ExceptionCode.USER_NOT_FOUND));
+
+        List<Post> posts = postService.getPostsByUserId(user.getId());
+        for (Post post : posts) {
+            postService.delete(post.getId());
+        }
 
         userRepository.delete(user);
     }

@@ -121,6 +121,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/withdraw/{serialNumber}")
     public void delete(@PathVariable("serialNumber") String serialNumber) {
+
         userService.delete(serialNumber);
     }
 }
