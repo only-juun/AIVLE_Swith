@@ -43,18 +43,6 @@ public interface PostService {
     public Page<Post> getPageList(int size);
 
     /**
-     * 검색 기능을 활용한 페이지 조회
-     */
-//    public Page<Post> PostSearch(PostSearch postSearch, Pageable pageable);
-
-    /**
-     * 검색 한 게시글 조회
-     * @param postSearch
-     * @return
-     */
-//    List<Post> getSearchedPost(PostSearch postSearch);
-
-    /**
      * 검색 쿼리로 페이지 조회
      * @param postSearch
      * @param pageable
