@@ -36,7 +36,6 @@ public class User implements UserDetails {
     /**
      * 연령대(int), 시간대(array) 다 정수형
      */
-
     @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Thumb> thumbs = new ArrayList<>();
@@ -95,10 +94,6 @@ public class User implements UserDetails {
     }
 
     //==회원 정보 수정==//
-//    public void updateName(String name) {
-//        this.name = name;
-//    }
-
     public void updateNickname(String nickname) {
         this.nickname = nickname;
     }
