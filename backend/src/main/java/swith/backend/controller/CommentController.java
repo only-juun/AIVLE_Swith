@@ -34,7 +34,6 @@ public class CommentController {
         commentService.save(postId, comment);
     }
 
-
     /**
      * 댓글 수정
      */
@@ -45,7 +44,6 @@ public class CommentController {
 
         commentService.update(commentId, commentUpdateDto);
     }
-
 
     /**
      * 댓글 삭제

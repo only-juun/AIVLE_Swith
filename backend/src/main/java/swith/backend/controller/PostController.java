@@ -10,7 +10,6 @@ import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import swith.backend.domain.Post;
@@ -127,16 +126,9 @@ public class PostController {
         return new PageNumberDto(totalPages, totalElements);
     }
 
-//    @Operation(summary = "board search paging", description = "게시글 검색 관련 개수")
-//    @GetMapping("/pageNumber")
-//    public PageNumberDto pageNumberBySearch() {
-//        Page<Post> posts = postService.getPageList(10);
-//        int totalPages = posts.getTotalPages();
-//        long totalElements = posts.getTotalElements();
-//
-//        return new PageNumberDto(totalPages, totalElements);
-//    }
-
+    /**
+     * 게시글 조건 검색
+     */
     @Operation(summary = "search posts", description = "게시글 검색하기")
     @GetMapping("/search")
     public ResponseEntity<Result> getCondList(@RequestParam("type") String type,
