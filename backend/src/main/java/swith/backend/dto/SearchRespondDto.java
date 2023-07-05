@@ -20,7 +20,7 @@ public class SearchRespondDto {
     public SearchRespondDto(Post post) {
         postId = post.getId();
         title = post.getTitle();
-        writer = post.getUser().getEmail();
+        writer = post.getUser().getNickname();
         createTime = post.getCreatedDate();
         searchCount = post.getSearchCount();
         likeCount = post.getLikeCount();
