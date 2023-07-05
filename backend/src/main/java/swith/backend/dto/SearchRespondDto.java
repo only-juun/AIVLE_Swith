@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class SearchRespondDto {
     private Long postId;
     private String title;
-    private String writer;
+    private String nickname;
     private LocalDateTime createTime;
     private int searchCount;
     private int likeCount;
@@ -20,7 +20,7 @@ public class SearchRespondDto {
     public SearchRespondDto(Post post) {
         postId = post.getId();
         title = post.getTitle();
-        writer = post.getUser().getEmail();
+        nickname = post.getUser().getEmail();
         createTime = post.getCreatedDate();
         searchCount = post.getSearchCount();
         likeCount = post.getLikeCount();
