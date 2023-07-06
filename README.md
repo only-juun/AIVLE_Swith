@@ -22,6 +22,11 @@
 </div>
 <br/>
 
+### 3. 서비스 FLOW
+﻿<div align="center">
+<p><img src="/doc/images/serviceflow.png"></p>
+</div>
+
 
 ## commit convention
 
