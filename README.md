@@ -2,7 +2,7 @@
 <p><img src="/doc/images/main.png"></p>
 </div>
 <br/>
-https://www.swith.kr/team21
+https://www.swith.kr/team21 <br/>
 # 1. 프로젝트 팀 소개
  S.WITH 팀은 WiFi와 카메라를 이용하여 사람의 위험 행동 감지하는 프로젝트를 진행하였습니다.<br/>
 저희가 해당 과제를 선정하게 된 배경은 아동과 고령에 대해서 부쩍 많아진 안전 사고를 보며 <br/>
