@@ -3,7 +3,7 @@
 </div>
 <br/>
 
-### 1. 프로젝트 팀 소개
+# 1. 프로젝트 팀 소개
  S.WITH 팀은 WiFi와 카메라를 이용하여 사람의 위험 행동 감지하는 프로젝트를 진행하였습니다.<br/>
 저희가 해당 과제를 선정하게 된 배경은 아동과 고령에 대해서 부쩍 많아진 안전 사고를 보며 <br/>
 사고를 예방할 수 있는 서비스는 없을까 라는 생각에서 시작하게 되었습니다.<br/>
@@ -16,18 +16,18 @@
 홈 IOT 기기를 통해 가정내 안전 사고를 예방할 수 있고 보호자에게 알리고 자동으로 신고를 해 주며 <br/>
 이외에도 비상 상황을 감지해주는 연령과 무관하게 통합적으로 케어할 수 있는 플랫폼을 구현였습니다.<br/>
 
-### 2. 팀원 소개
+# 2. 팀원 소개
 ﻿<div align="center">
 <p><img src="/doc/images/introduce.png"></p>
 </div>
 <br/>
 
-### 3. 서비스 FLOW
+# 3. 서비스 FLOW
 ﻿<div align="center">
 <p><img src="/doc/images/serviceflow.png"></p>
 </div>
 
-### 4. 핵심기능
+# 4. 핵심기능
 ﻿<div align="center">
 <p><img src="/doc/images/wifi_camera.png"></p>
 </div>
@@ -35,7 +35,7 @@
 <p><img src="/doc/images/service.png"></p>
 </div>
 
-### 5. AI 기술
+# 5. AI 기술
 ﻿<div align="center">
 <p><img src="/doc/images/architect.png"></p>
 </div>
