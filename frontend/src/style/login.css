@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_frame {
+  display: flex;
+  margin-top: 100px;
+}
+
+.loginFrame_left {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  width: 100%;
+  height: 650px;
+  background-color: white;
+  border-radius: 10px 0px 0px 10px;
+  box-shadow: -5px 5px 15px -5px black;
+  opacity: 0.9;
+  margin-top: auto;
+}
+
+.login_loginArea {
+  position: relative;
+  padding-top: 150px;
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.loginArea_right {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  min-width: 400px;
+  background-color: #c2baa6;
+  border-radius: 0px 10px 10px 0px;
+  box-shadow: -10px 5px 25px -5px black;
+  overflow: hidden;
+  z-index: -1;
+  margin-top: auto;
+}
+
+.platformTextbox {
+  position: absolute;
+  bottom: 100px;
+  right: 220px;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: "Noto Sans KR", sans-serif;
+  color: white;
+  padding: 20px;
+  padding-left: 50px;
+  border-left: 2px solid white;
+  z-index: 1;
+}
+
+.platformTextbox2 {
+  position: absolute;
+  bottom: 60px;
+  right: 130px;
+  width: 202px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  color: white;
+  z-index: 1;
+}
+
+.Arrows {
+  position: absolute;
+  left: 20px;
+  top: 47px;
+  cursor: pointer;
+  background-color: rgb(242, 242, 242);
+  padding: 4px;
+  border-radius: 10px;
+  text-decoration: none;
+  fill: black;
+  transition: all ease-in-out 0.15s;
+}
+
+.Arrows:hover {
+  background-color: rgb(180, 185, 199);
+}
+
+.loginregisters {
+  position: absolute;
+  cursor: pointer;
+  color: rgb(105, 105, 105);
+  font-weight: 600;
+  top: 44px;
+  right: 35px;
+  font-size: 15px;
+  transition: all ease-in-out 0.2s;
+}
+
+.loginregisters:hover {
+  color: rgb(149, 50, 149);
+}
+
+.pwInput,
+.emailInput {
+  padding: 5px;
+  width: 80%;
+  margin-top: 15px;
+  border: 1;
+  border-radius: 10px;
+  outline-style: none;
+  display: inline-block;
+  height: 30px;
+  font-family: sans-serif;
+}
+
+.findId {
+  position: relative;
+  top: 5px;
+  margin-right: -125px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #c2baa6;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.loginbuttonarea {
+  margin-top: -10px;
+}
+
+.loginButton {
+  position: relative;
+  bottom: -30px;
+  margin-top: 15px;
+  width: 80%;
+  height: 40px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 700;
+  background-color: #b1ab9a;
+  color: rgb(255, 255, 255);
+  transition: all ease-in-out 0.2s;
+}
+
+.loginButton2 {
+  margin-top: 10px;
+}
+
+.loginButton:hover {
+  background-color: #717171;
+  color: rgb(255, 255, 255);
+}
+
+.loginArea_right {
+  background-image: url("../img/hf.jpeg");
+  background-size: 100%;
+}

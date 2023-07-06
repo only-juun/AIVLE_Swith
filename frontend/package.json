@@ -1,0 +1,65 @@
+{
+  "name": "s_with",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^38.0.1",
+    "@ckeditor/ckeditor5-react": "^6.0.0",
+    "@emailjs/browser": "^3.11.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.3.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "event-source-polyfill": "^1.0.31",
+    "eventsource": "^2.0.2",
+    "html-react-parser": "^4.0.0",
+    "https-browserify": "^1.0.0",
+    "jquery": "^3.7.0",
+    "jquey": "^0.0.1-security",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
+    "react-cookie": "^4.1.1",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-redux": "^8.1.0",
+    "react-router-dom": "^6.13.0",
+    "react-scripts": "^5.0.1",
+    "react-webcam": "^7.1.1",
+    "redux": "^4.2.1",
+    "sass": "^1.63.4",
+    "scss": "^0.2.4",
+    "stream": "^0.0.2",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.1",
+    "util": "^0.12.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

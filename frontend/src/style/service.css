@@ -1,0 +1,133 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-width: 1320px;
+  height: 624px;
+  margin: auto;
+  margin-top: 120px;
+  gap: 20px;
+  border: 3px solid gray;
+}
+
+.log_detection {
+  text-align: end;
+  margin-left: auto;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ef3515;
+}
+
+.livecam {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  min-width: 610px;
+  height: 360px;
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.verticalContainer {
+  display: flex;
+  flex-direction: column;
+  width: 670px;
+  height: 600px;
+}
+
+.logContainer {
+  display: flex;
+  flex-direction: column;
+  width: 670px;
+  height: 100%;
+}
+
+.log_record {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 25px;
+  margin-bottom: 35px;
+}
+
+.log_list {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid black;
+  margin-left: 4px;
+  width: 660px;
+  height: 30px;
+}
+
+.log_list span {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.log_list span:nth-child(1) {
+  width: 25%;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.log_list span:nth-child(2) {
+  text-align: center;
+  width: 45%;
+  text-decoration: none;
+}
+
+.log_list span:nth-child(3) {
+  width: 15%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.log_list span:nth-child(4) {
+  width: 15%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.log {
+  display: flex;
+  border-bottom: 1px solid black;
+  margin-left: 4px;
+  width: 660px;
+  height: 29px;
+}
+
+.log span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.log span:nth-child(1) {
+  width: 20%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.log span:nth-child(2) {
+  text-align: center;
+  width: 50%;
+  text-decoration: none;
+}
+
+.log span:nth-child(3) {
+  width: 15%;
+  text-align: center;
+  text-decoration: none;
+  color: red;
+  font-size: 19px;
+}
+
+.log span:nth-child(4) {
+  width: 15%;
+  color: red;
+  font-size: 19px;
+  text-align: center;
+}

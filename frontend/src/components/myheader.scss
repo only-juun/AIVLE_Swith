@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+:root {
+  --content-width: 1000px;
+  --breakpoint: 799px;
+  --nav-height: 80px;
+  --nav-background: #ebe2cd;
+  --nav-font-color: #353535;
+  --link-hover-color: #c2baa6;
+  --noto-font: "Noto Sans KR", sans-serif;
+}
+
+.navigation {
+  height: var(--nav-height);
+  background: var(--nav-background);
+}
+
+.brand {
+  position: absolute;
+  margin: auto;
+  margin-left: 8px;
+  float: left;
+  line-height: var(--nav-height);
+  text-transform: uppercase;
+  font-size: 1.4em;
+}
+
+.brand a,
+.brand a:visited {
+  color: var(--nav-font-color);
+  text-decoration: none;
+}
+
+.nav-container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+nav {
+  float: right;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  float: left;
+  position: relative;
+}
+
+nav ul li span,
+nav ul li span:visited {
+  display: block;
+  padding: 0 10px;
+  line-height: var(--nav-height);
+  background: var(--nav-background);
+  color: var(--nav-font-color);
+  text-decoration: none;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+nav ul li span:hover {
+  background: var(--link-hover-color);
+  color: var(--nav-font-color);
+}
+
+nav ul li span:not(:only-child):after {
+  padding-left: 4px;
+  content: " ▾";
+}
+
+nav ul li ul li {
+  min-width: 190px;
+}
+
+nav ul li ul li a {
+  padding: 15px;
+  line-height: 20px;
+}
+
+.nav-list .active span {
+  text-decoration: solid underline var(--nav-font-color) 2.5px;
+  text-underline-offset: 7px;
+}

@@ -22,13 +22,6 @@
 </div>
 <br/>
 
-### 3. 서비스 FLOW
-﻿<div align="center">
-<p><img src="/doc/images/serviceflow.png"></p>
-</div>
-서비스 플로우 중 iot의 경우 카메라 데이터와 wifi 데이터를 수집하고 전처리를 하여 ai모델링을 진행하여고, ai 모델링된 이상탐지 결과를 web으로 전송하였습니다
-web의 경우 게시판,큐앤에이,비상알림 서비스라는 2개의 메인서비스로 이루어져있고 비상알림서비스의 경우 이상탐지 내용과 알림을 실시간으로 웹에 띄워줍니다
-
 
 ## commit convention
 
