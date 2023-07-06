@@ -29,6 +29,8 @@ public class SecurityConfig {
         http.cors().configurationSource(request -> {
             CorsConfiguration cors = new CorsConfiguration();
             cors.setAllowedOrigins(List.of("https://www.swith.kr"));
+            cors.setAllowedOrigins(List.of("http://www.swith.kr"));
+            cors.setAllowedOrigins(List.of("http://localhost:3000"));
             cors.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
             cors.setAllowedHeaders(List.of("*"));
             return cors;
@@ -47,7 +49,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,"/users/user").denyAll()
                 .antMatchers(HttpMethod.GET,"/users/find**").denyAll()
                 .antMatchers("/users/sendEmail").permitAll()
-                .antMatchers("/users/test").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

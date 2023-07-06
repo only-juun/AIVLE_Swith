@@ -1,0 +1,281 @@
+.signup_container{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 50px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 80%
+}
+
+.register_frame {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 32%;
+    width: 32%;
+    height: 800px;
+    background-color: white;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: 1px 0px 0px 0px black;
+    opacity: 0.9;
+    margin-top: auto;
+    margin-left: 0px;
+  }
+
+.register_Area{
+    width: 80%;
+    position: relative;
+    border-radius: 30px;
+    text-align: center;
+  }
+
+  .register_Area {
+    margin-top : 75px;
+  }
+
+.register_Area::before {
+    content: '회원가입';
+    position: absolute;
+    top: -40px;
+    color:#5f5f5f;
+    left: 20px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+.idInput, .pwInput, .emailInput, .serialnumberInput, .phoneInput, .nameInput, .ageInput, .timeInput{
+  padding: 5px;
+  width: 80%;
+  margin-top: 15px;
+  border: 1;
+  border-radius: 10px;
+  outline-style: none;
+  display: inline-block;
+  height: 30px;
+  font-family: sans-serif;
+}
+
+.idInput:focus, .pwInput:focus, .emailInput:focus, .serialnumberInput:focus, .phoneInput:focus, .nameInput:focus{
+  border-color: #B1AB9A;
+  box-shadow: 0 0 10px #B1AB9A; 
+  outline: none;
+}
+
+.timeInput{
+  width: 35%;
+  padding: 0px;
+}
+
+.pwChecking{
+  font-size: 12px;
+  opacity: 1;
+  position: relative;
+  top: 15px;
+  -webkit-user-select:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none;
+}
+
+.showPw{
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 1;
+  position: relative;
+  top: 2.5px;
+  -webkit-user-select:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none;
+}
+
+.register_sbButton{
+  position: relative;
+  bottom: -30px;
+  margin-top: 15px;
+  width: 80%;
+  height: 40px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 700;
+  background-color : #B1AB9A; 
+  color: rgb(255, 255, 255);
+  transition: all ease-in-out 0.2s;
+}
+
+.register_sbButton:hover {
+    background-color : #717171; 
+    color: rgb(255, 255, 255);
+  }
+
+.register_terms_of_service{
+    position: relative;
+    width: 100%;
+    margin-right: -2.5%;
+  }
+
+  .btn-custom {
+    background-color: #B1AB9A;
+    border-color: transparent;
+    margin-top: 15px;
+  }
+  
+  .btn-custom:hover {
+    background-color: #717171;
+    border-color: transparent;
+  }
+
+.ageInputContainer {
+  position: relative;
+}
+
+.ageInputContainer .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: #B1AB9A;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -125px;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.ageInputContainer:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.timeInputContainer {
+  position: relative;
+}
+
+.timeInputContainer .tooltiptext{
+  visibility: hidden;
+  width: 250px;
+  background-color: #B1AB9A;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+  top: 120%;
+  left: 50%;
+  margin-left: -125px;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.timeInputContainer:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nametooltipContainer {
+  position: relative;
+}
+
+.nametooltipContainer .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: #B1AB9A;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.nameInput:invalid:not(:placeholder-shown) + .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nameInput:valid + .tooltiptext,
+.nameInput:placeholder-shown + .tooltiptext {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.nametooltipContainer {
+  position: relative;
+}
+
+.emailtooltipContainer .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: #B1AB9A;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.emailInput:invalid:not(:placeholder-shown) + .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.emailInput:valid + .tooltiptext,
+.emailInput:placeholder-shown + .tooltiptext {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.pwdtooltipContainer .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: #B1AB9A;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.pwInput:invalid:not(:placeholder-shown) + .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.pwInput:valid + .tooltiptext,
+.pwInput:placeholder-shown + .tooltiptext {
+  visibility: hidden;
+  opacity: 0;
+}

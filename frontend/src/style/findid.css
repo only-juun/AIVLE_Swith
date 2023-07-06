@@ -1,0 +1,96 @@
+.findpassword{
+    height: 714px;
+    margin-bottom: 0px;
+}
+
+.find_pwd {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 550px;
+    margin: 100px auto;
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+.Arrows_1 {
+    position: absolute;
+    cursor: pointer;
+    top: 27.5%;
+    left: 38.5%;
+    background-color: rgb(242, 242, 242);
+    padding: 4px;
+    border-radius: 10px;
+    text-decoration: none;
+    fill: black;
+    transition: all ease-in-out 0.15s;
+  }  
+
+.confirmPasswordInput,
+.emailInput,
+.newPasswordInput,
+.serialnumberInput{
+  padding: 5px;
+  width: 80%;
+  margin-top: 15px;
+  border: 1;
+  border-radius: 10px;
+  outline-style: none;
+  display: inline-block;
+  height: 30px;
+  font-family: sans-serif;
+}
+
+.findid_button {
+    position: relative;
+    bottom: -30px;
+    margin-top: 15px;
+    width: 80%;
+    height: 40px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 700;
+    background-color: #B1AB9A;
+    color: rgb(255, 255, 255);
+    transition: all ease-in-out 0.2s;
+  }
+
+.findid_button:hover{
+    background-color : #717171; 
+    color: rgb(255, 255, 255);
+}
+
+.resetpwd{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 6.75em auto;
+}
+
+.resetpwd_button {
+    position: relative;
+    margin-top: 15px;
+    width: 80%;
+    height: 40px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 700;
+    background-color: #B1AB9A;
+    color: rgb(255, 255, 255);
+    transition: all ease-in-out 0.2s;
+  }
+
+.resetpwd_button:hover{
+    background-color : #717171; 
+    color: rgb(255, 255, 255);
+}

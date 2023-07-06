@@ -1,0 +1,95 @@
+.mypage_pwcheck {
+  position: relative;
+  display: flex;
+  border-radius: 10px;
+  text-align: center;
+  height: 420px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 13.23em auto;
+  padding-bottom: 35px;
+}
+
+.mypage_main{
+    height: 754px;
+    margin-top: 100px;
+}
+
+.mypageFrame {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  width: 400px;
+  height: 754px;
+  background-color: white;
+  border-radius: 10px 0px 0px 10px;
+  box-shadow: -5px 5px 15px -5px black;
+  opacity: 0.9;
+}
+
+.mypage_edit {
+  position: relative;
+  top: -50px;
+  width: 30%;
+}
+
+.idInput,
+.pwInput,
+.emailInput,
+.serialnumberInput,
+.phoneInput,
+.nameInput,
+.ageInput,
+.timeInput {
+  padding: 5px;
+  width: 80%;
+  margin-top: 15px;
+  border: 1;
+  border-radius: 10px;
+  outline-style: none;
+  display: inline-block;
+  height: 30px;
+  font-family: sans-serif;
+}
+
+.idInput:focus,
+.pwInput:focus,
+.emailInput:focus,
+.serialnumberInput:focus,
+.phoneInput:focus,
+.nameInput:focus {
+  border-color: #b1ab9a;
+  box-shadow: 0 0 10px #b1ab9a;
+  outline: none;
+}
+
+.mypage_button {
+  position: relative;
+  bottom: -30px;
+  width: 80%;
+  height: 35px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 700;
+  background-color: #b1ab9a;
+  color: rgb(255, 255, 255);
+  transition: all ease-in-out 0.2s;
+}
+
+.mypage_button:hover {
+  background-color: #717171;
+  color: rgb(255, 255, 255);
+}
+
+.withdraw_button {
+  margin-top: 45px;
+}
+
+.editArea{
+  margin-bottom: -40px;
+}

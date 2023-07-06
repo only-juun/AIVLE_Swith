@@ -1,0 +1,96 @@
+.team_wrapper{
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 1150px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.team-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+}
+
+.team-card {
+  flex: 0 0 auto;
+  width: 221px;
+  height: 300px;
+  margin: 1.75rem;
+}
+
+.card-img-top {
+  width: 218px;
+  height: 220px;
+  justify-self: center;
+}
+
+.card {
+  position: relative;
+  perspective: 1000px;
+  height: 100%;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8;
+}
+
+.card-back-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.github-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: C2BAA6;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.github-link:hover {
+  background-color: C2BAA6;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 13px;
+  font-weight: 500;
+}
