@@ -16,6 +16,12 @@
 홈 IOT 기기를 통해 가정내 안전 사고를 예방할 수 있고 보호자에게 알리고 자동으로 신고를 해 주며 <br/>
 이외에도 비상 상황을 감지해주는 연령과 무관하게 통합적으로 케어할 수 있는 플랫폼을 구현였습니다.<br/>
 
+### 2. 팀원 소개
+﻿<div align="center">
+<p><img src="/doc/images/introduce.png"></p>
+</div>
+<br/>
+
 ## commit convention
 
 add - 새로운 기능 혹은 코드를 추가할 경우  
