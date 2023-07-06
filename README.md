@@ -40,7 +40,7 @@
 <p><img src="/doc/images/architect.png"></p>
 </div>
 
-### 6. 아키텍처
+# 6. 아키텍처
 ﻿<div align="center">
 <p><img src="/doc/images/3tier.png"></p>
 </div>
