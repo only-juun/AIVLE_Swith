@@ -61,53 +61,14 @@ const SERVICE = () => {
     };
   }, []);
 
-  // camera setting
-  const webcamRef = useRef(null);
-  const [webcamStream, setWebcamStream] = useState(null);
 
-  useEffect(() => {
-    const enableWebcam = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
-        setWebcamStream(stream);
-      } catch (error) {
-        window.alert("Error accessing webcam:", error);
-      }
-    };
-
-    enableWebcam();
-
-    // 컴포넌트 언마운트 시 웹캠 스트림 정리
-    return () => {
-      if (webcamStream) {
-        webcamStream.getTracks().forEach((track) => track.stop());
-      }
-    };
-  }, [webcamStream]);
 
   return (
     <div className="service">
       <Myheader isLogin={session} />
       <div className="container">
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div className="livecam">
-            {" "}
-            {webcamStream ? (
-              <Webcam
-                audio={false}
-                ref={webcamRef}
-                videoConstraints={{
-                  width: 610,
-                  height: 360,
-                  facingMode: "user",
-                }}
-              />
-            ) : (
-              <div>No webcam available</div>
-            )}
-          </div>
+         <div className="livecam">cam stream</div>
         </div>
         <div className="verticalContainer">
           <div className="logContainer">
