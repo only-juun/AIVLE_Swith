@@ -1,0 +1,6 @@
+# Ignore credentials file
+credentials.txt
+
+# Ignore AWS credentials
+*.aws/config
+*.aws/credentials
