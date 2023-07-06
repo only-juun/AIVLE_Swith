@@ -1,0 +1,6 @@
+make: Entering directory '/usr/src/linux-headers-4.15.0-212-generic'
+  INSTALL /home/yhk/linux-80211n-csitool/drivers/net/wireless/intel/iwlwifi/dvm/iwldvm.ko
+  INSTALL /home/yhk/linux-80211n-csitool/drivers/net/wireless/intel/iwlwifi/iwlwifi.ko
+  INSTALL /home/yhk/linux-80211n-csitool/drivers/net/wireless/intel/iwlwifi/mvm/iwlmvm.ko
+  DEPMOD  4.15.0-212-generic
+make: Leaving directory '/usr/src/linux-headers-4.15.0-212-generic'

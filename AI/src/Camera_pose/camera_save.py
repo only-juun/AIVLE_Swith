@@ -15,14 +15,23 @@ import tensorflow_hub as hub
 from tensorflow import keras
 import requests
 import boto3
+# from detect_human import detect_h
+
+url = "http://15.165.98.14:8080/"
+url_sse = url + "notifications/send-data"
+url_db = url + "notifications/send-db"
 
 # AWS 자격 증명 설정
+session = boto3.Session(
+    aws_access_key_id='AKIAVDZ23WGFTCF6A5JY',
+    aws_secret_access_key='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'
+)
 
 # S3 클라이언트 생성
 s3_client = session.client('s3')
 
 # 모델 파일 다운로드
-s3_client.download_file('a031293-bucket', 'model/camera_wifi.h5', 'StateOfArt-load-model.h5')
+# s3_client.download_file('a031293-bucket', 'model/camera_wifi.h5', 'StateOfArt-load-model.h5')
 
 
 from sklearn.model_selection import train_test_split
@@ -86,11 +95,15 @@ def detect_landmarks(image, interpreter):
     Returns:
         Detected landmarks.
     """
+    # tf.compat.v1.enable_eager_execution()
+
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
 
     input_shape = input_details[0]['shape']
-    input_tensor = np.expand_dims(image, axis=0)
+    images = tf.make_ndarray(image.numpy())
+
+    input_tensor = np.expand_dims(images, axis=0)
     input_tensor = tf.image.resize(input_tensor, (input_shape[1], input_shape[2]))
     input_tensor = tf.cast(input_tensor, dtype=input_details[0]['dtype'])
 
@@ -192,18 +205,28 @@ def capture_webcam_screen(output_folder, model_path,cmodel_path):
             preprocess_single_image(image_name, csv_out_path, images_out_folder, model_path)
             camera_predi = classifier(cmodel_path, csv_out_path)
             print(camera_predi) ##########여기가 예측된 결과 출력하는 부분
-            
+            #AWS 에 저 코드 됩니다.
+            #############################################
+            # if predi == 3:
+            #     보낸다
+            # elsif
+            filename = f'/home/yhk/Camera_pose/c_predictionResult/aTtest{i}.txt'
+            with open(filename, 'w') as file:
+                file.write(camera_predi)
+
+            ################################################
             print(f'Image captured: {image_name}')
 
         time.sleep(3)  # Wait for 1 second
         # Press 'q' to stop capturing
-        if cv2.waitKey(3) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-        # camera finish and WiFi start
-        filename = f'C:\MyPaperWork_YH\\wifidata\\aTtest{i}.txt'
-        f = open(filename, 'r')
-        wifi_predict = f.readline()
+        cap.release()  # Release the webcam
+        cv2.destroyAllWindows()  # Close all OpenCV windows
+
+        # camera finish and WiFi start --- real estimate
+
         # print(wifi_predict[0])
         i += 1
 
@@ -230,41 +253,45 @@ def capture_webcam_screen(output_folder, model_path,cmodel_path):
 
         #write camera's serialNumber
         d_send["serialNumber"] = "123456"
-
-
-        if child:
-            if wifi_predict == "backlay" and camera_predi == 0:
-                d_send["label"] = 1
-                d_send["wifi"] = "True"
-                d_send["camera"] = "True"
-            elif wifi_predict == "onfloor" and camera_predi == 3:
-                d_send["label"] = 0
-                d_send["wifi"] = "True"
-                d_send["camera"] = "True"
-            elif wifi_predict == "indanger" and camera_predi == 2:
-                d_send["label"] = 2
-                d_send["wifi"] = "True"
-                d_send["camera"] = "False"
-
-        elif adult:
-            if wifi_predict == "onfloor" and camera_predi == 3:
-                d_send["label"] = 3
-                d_send["wifi"] = "True"
-                d_send["camera"] = "True"
-            elif wifi_predict == "indanger" and camera_predi == 2:
-                d_send["label"] = 4
-                d_send["wifi"] = "True"
-                d_send["camera"] = "False"
+        # print(detect_h())
+        #할머늬잉
+        # if child:
+        #     if wifi_predict == "backlay" and camera_predi == 0:
+        #         d_send["label"] = 1
+        #         d_send["wifi"] = "True"
+        #         d_send["camera"] = "True"
+        #     # elif wifi_predict =="backlay" and detect_h():
+        #     #     d_send["label"] = 1
+        #     #     d_send["wifi"] = "True"
+        #     #     d_send["camera"] = "False"
+        #
+        #     elif wifi_predict == "onfloor" and camera_predi == 3:
+        #         d_send["label"] = 0
+        #         d_send["wifi"] = "True"
+        #         d_send["camera"] = "True"
+        #     elif wifi_predict == "indanger" and camera_predi == 2:
+        #         d_send["label"] = 2
+        #         d_send["wifi"] = "True"
+        #         d_send["camera"] = "False"
+        #
+        # elif adult:
+        #     if wifi_predict == "onfloor" and camera_predi == 3:
+        #         d_send["label"] = 3
+        #         d_send["wifi"] = "True"
+        #         d_send["camera"] = "True"
+        #     elif wifi_predict == "indanger" and camera_predi == 2:
+        #         d_send["label"] = 4
+        #         d_send["wifi"] = "True"
+        #         d_send["camera"] = "False"
 
         response = requests.post(url_sse, json=d_send, headers=headers)
         response = requests.post(url_db, json=d_send, headers=headers)
 
-    cap.release()  # Release the webcam
-    cv2.destroyAllWindows()  # Close all OpenCV windows
+
 
 # Output folder to save the captured images
-output_folder = 'C:\\MyPaperWork_YH\\Camera_pose\\data'
-model_path = "C:\\MyPaperWork_YH\\Camera_pose\\model\\movenet_thunder.tflite.tflite"
-cmodel_path = "C:\\MyPaperWork_YH\\Camera_pose\\model\\pose_classifier.tflite"
+output_folder = '/home/yhk/Camera_pose/data'
+model_path = "/home/yhk/Camera_pose/model/movenet_thunder.tflite.tflite"
+cmodel_path = "/home/yhk/Camera_pose/model/pose_classifier.tflite"
 # Call the function to capture the webcam screen and save images every second
 capture_webcam_screen(output_folder,model_path,cmodel_path)
