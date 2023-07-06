@@ -1,3 +1,8 @@
+﻿<div align="center">
+<p><img src="/doc/Images/service.jpg"></p>
+</div>
+<br/>
+
 ## commit convention
 
 add - 새로운 기능 혹은 코드를 추가할 경우  
@@ -10,3 +15,4 @@ refactor - 코드를 전면수정한 경우
 move - 파일이 다른 디렉토리로 이동했을 경우  
 test - 테스트 콛, 리펙토링 테스트 코드 추가  
 chore - 빌드 업무 수정, 패키지 업무 수정  
+
