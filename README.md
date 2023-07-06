@@ -45,6 +45,18 @@
 <p><img src="/doc/images/3tier.png"></p>
 </div>
 
+# 7. 인프라
+﻿<div align="center">
+<p><img src="/doc/images/infra.png"></p>
+</div>
+Https 적용과 dns를 위하여 라우트53과 클라우드프론드,alb를 도입하였고 리액트 앱을 s3에 배포하였습니다. <br/>
+스프링 서버의 경우 ec2에 배포를 하였고 데이터베이스의 경우 아마존 rds를 이용하여 연동을 하였습니다.
+
+
+# 8. 기대효과
+﻿<div align="center">
+<p><img src="/doc/images/expect.png"></p>
+</div>
 
 
 ## commit convention
