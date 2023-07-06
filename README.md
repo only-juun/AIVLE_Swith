@@ -27,6 +27,17 @@
 <p><img src="/doc/images/serviceflow.png"></p>
 </div>
 
+### 4. 사용된 AI 기술
+﻿<div align="center">
+<p><img src="/doc/images/architect.png"></p>
+</div>
+
+### 5. 아키텍처
+﻿<div align="center">
+<p><img src="/doc/images/3tier.png"></p>
+</div>
+
+
 
 ## commit convention
 
