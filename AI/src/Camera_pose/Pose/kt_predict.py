@@ -12,8 +12,8 @@ url_sse = url + "notifications/send-data"
 url_db = url + "notifications/send-db"
 # AWS 자격 증명 설정
 session = boto3.Session(
-    aws_access_key_id='AKIAVDZ23WGFTCF6A5JY',
-    aws_secret_access_key='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'
+    aws_access_key_id='',
+    aws_secret_access_key=''
 )
 
 # S3 클라이언트 생성
