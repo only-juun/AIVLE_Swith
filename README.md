@@ -22,7 +22,7 @@
 <div align="center">
 <p><img src="/doc/images/main.png"></p>
 </div>
-<a href = "https://www.swith.kr">Swith: Stay With 웹페이지 바로가기</a>
+<a href = "https://d1t41u00w18ofo.cloudfront.net/main">Swith: Stay With 웹페이지 바로가기</a>
 <br/>
 <br/>
 <!-- TABLE OF CONTENTS -->
