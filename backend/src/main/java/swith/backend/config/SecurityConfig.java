@@ -47,7 +47,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,"/users/user").denyAll()
                 .antMatchers(HttpMethod.GET,"/users/find**").denyAll()
                 .antMatchers("/users/sendEmail").permitAll()
-                .antMatchers("/users/test").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

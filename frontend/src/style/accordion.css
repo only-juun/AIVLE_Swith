@@ -1,0 +1,129 @@
+.accordion .item {
+  border: 0;
+  border-radius: 0;
+  padding: 1.5rem 1rem;
+}
+
+.accordion:last-child .item {
+  border-top: 2px dashed #d3d3d3;
+}
+
+.accordion-item {
+  background-color: transparent;
+}
+
+.accordion .item .accordion-header button {
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 1rem;
+  letter-spacing: 0.125rem;
+  line-height: 1.375rem;
+  color: black;
+  font-weight: 700;
+  vertical-align: middle;
+  position: relative;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.accordion .item .accordion-header button::after {
+  transition: all 0.6s ease;
+}
+
+.accordion .item .accordion-collapse {
+  transition: all 0.4s ease;
+}
+
+.question {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: 90%
+}
+
+.email_contact {
+  border: 2px solid gray;
+  border-radius: 5%;
+  box-shadow: 2px 3px 5px 0px;
+  width: 35%;
+  margin-top: 36px;
+  margin: auto;
+  height: 560px;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.faq_input {
+  margin-left: 3%;
+  margin-bottom: 5px;
+  width: 94%;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+
+.mypagepwInput{
+  margin-top: 15px;
+  width: 350px;
+  height: 35px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 10px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+
+textarea {
+  margin-left: 3%;
+  width: 94%;
+  height: 250px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+  resize: none;
+}
+
+.em_title {
+  font-weight: bold;
+  margin-left: 3%;
+  margin-bottom: 3%;
+  margin-top: 3%;
+}
+
+label {
+  margin-left: 3%;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+.submitEmail{
+  position: relative;
+  width: 120px;
+  height: 35px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 700;
+  background-color : #B1AB9A; 
+  color: rgb(255, 255, 255);
+  transition: all ease-in-out 0.2s;
+  margin-bottom: 5px;
+}
+
+.submitEmail:hover {
+  background-color: #353535;
+  color: white;
+}
