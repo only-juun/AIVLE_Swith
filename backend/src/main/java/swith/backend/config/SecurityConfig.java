@@ -28,7 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().configurationSource(request -> {
             CorsConfiguration cors = new CorsConfiguration();
-            cors.setAllowedOrigins(List.of("http://localhost:3000", "http://swith-http.s3-website.ap-northeast-2.amazonaws.com"));
+            cors.setAllowedOrigins(List.of("http://localhost:3000", "http://swith-http.s3-website.ap-northeast-2.amazonaws.com", "https://www.swith.kr", "http://www.swith.kr"));
             cors.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
             cors.setAllowedHeaders(List.of("*"));
             return cors;
