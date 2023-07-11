@@ -18,7 +18,7 @@
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew -->
 
-# 프로젝트 이름
+# S.WITH: Stay With
 <div align="center">
 <p><img src="/doc/images/main.png"></p>
 </div>
