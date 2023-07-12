@@ -85,43 +85,43 @@
 
 ## Web
 ﻿<div align="center">
-<p><img src="/doc/images/web/main.png"></p>
+<p><img src="/doc/web/main.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/second.png"></p>
+<p><img src="/doc/web/second.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/team.png"></p>
+<p><img src="/doc/web/team.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/board.png"></p>
+<p><img src="/doc/web/board.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/post.png"></p>
+<p><img src="/doc/web/post.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/read.png"></p>
+<p><img src="/doc/web/read.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/update.png"></p>
+<p><img src="/doc/web/update.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/inquiry.png"></p>
+<p><img src="/doc/web/inquiry.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/mypage.png"></p>
+<p><img src="/doc/web/mypage.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/signup.png"></p>
+<p><img src="/doc/web/signup.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/regex.png"></p>
+<p><img src="/doc/web/regex.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/find.png"></p>
+<p><img src="/doc/web/find.png"></p>
 </div>
 ﻿<div align="center">
-<p><img src="/doc/images/web/signin.png"></p>
+<p><img src="/doc/web/signin.png"></p>
 </div>
 
 ## AI 기술
@@ -145,10 +145,10 @@
 ## 부록
 ### DB 스키마
 ﻿<div align="center">
-<p><img src="/doc/images/db_schemapng.png"></p>
+<p><img src="/doc/db_schemapng.png"></p>
 </div>
 
 ### API Docs
 ﻿<div align="center">
-<p><img src="/doc/images/api_docs.png"></p>
+<p><img src="/doc/api_docs.png"></p>
 </div>
