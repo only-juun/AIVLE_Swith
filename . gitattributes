@@ -1,0 +1,5 @@
+*.py linguist-vendored
+*.ipynb linguist-vendored
+*.js linguist-vendored
+*.mat linguist-vendored
+*.c linguist-vendored
